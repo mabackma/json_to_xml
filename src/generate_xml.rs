@@ -73,6 +73,7 @@ use std::io::Cursor;
 /// - This function works recursively to handle nested structures and arrays.
 /// - Attributes are prefixed with `@` in the JSON input and are converted to XML attributes.
 /// - The order of attributes in the XML elements may differ.
+/// - The root start and end tags will only be included if the top-level JSON object contains `@` attributes.
 pub fn json_to_xml(json_string: &str, root: &str) -> String {
     let json_value: Value = from_str(&json_string).unwrap();
 
@@ -96,10 +97,12 @@ pub fn json_to_xml(json_string: &str, root: &str) -> String {
     
     create_xml_element(&json_value, &mut writer, root);
 
-    // Write the closing tag
-    writer
-        .write_event(Event::End(BytesEnd::new(root)))
-        .expect("Unable to write end tag"); 
+    // Write the closing tag if there was a top level attribute
+    if has_top_level_attributes(&json_value) {
+        writer
+            .write_event(Event::End(BytesEnd::new(root)))
+            .expect("Unable to write end tag"); 
+    }
 
     String::from_utf8(writer.into_inner().into_inner()).expect("Failed to convert to UTF-8")
 }
@@ -258,6 +261,15 @@ fn create_xml_element(
 
         // Skip unsupported types
         _ => {} 
+    }
+}
+
+// Check if json has top-level attributes
+fn has_top_level_attributes(json: &Value) -> bool {
+    if let Value::Object(map) = json {
+        map.keys().any(|key| key.starts_with('@'))
+    } else {
+        false
     }
 }
 
