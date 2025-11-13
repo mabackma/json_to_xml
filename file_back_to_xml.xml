@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--Generated with schema_generator 0.0.0-->
-<ForestPropertyData xmlns:gdt="http://standardit.tapio.fi/schemas/forestData/common/geometricDataTypes" xmlns:gml="http://www.opengis.net/gml" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sf="http://standardit.tapio.fi/schemas/forestData/specialFeature" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:co="http://standardit.tapio.fi/schemas/forestData/common" xmlns:tss="http://standardit.tapio.fi/schemas/forestData/treeStandSummary" xmlns:tst="http://standardit.tapio.fi/schemas/forestData/treeStratum" xmlns:st="http://standardit.tapio.fi/schemas/forestData/Stand" xmlns:ts="http://standardit.tapio.fi/schemas/forestData/treeStand" schemaPackageVersion="V20" schemaLocation="http://standardit.tapio.fi/schemas/forestData ForestData.xsd" schemaPackageSubversion="V20.01" xmlns="http://standardit.tapio.fi/schemas/forestData" xmlns:op="http://standardit.tapio.fi/schemas/forestData/operation" xmlns:dts="http://standardit.tapio.fi/schemas/forestData/deadTreeStrata">
+<ForestPropertyData schemaLocation="http://standardit.tapio.fi/schemas/forestData ForestData.xsd" xmlns:dts="http://standardit.tapio.fi/schemas/forestData/deadTreeStrata" xmlns:gdt="http://standardit.tapio.fi/schemas/forestData/common/geometricDataTypes" xmlns:gml="http://www.opengis.net/gml" xmlns:st="http://standardit.tapio.fi/schemas/forestData/Stand" xmlns:tss="http://standardit.tapio.fi/schemas/forestData/treeStandSummary" schemaPackageSubversion="V20.01" xmlns:ts="http://standardit.tapio.fi/schemas/forestData/treeStand" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:co="http://standardit.tapio.fi/schemas/forestData/common" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://standardit.tapio.fi/schemas/forestData" xmlns:tst="http://standardit.tapio.fi/schemas/forestData/treeStratum" schemaPackageVersion="V20" xmlns:op="http://standardit.tapio.fi/schemas/forestData/operation" xmlns:sf="http://standardit.tapio.fi/schemas/forestData/specialFeature">
   <st:Stands>
     <St:Stand id="37339713">
-      <st:SpecialFeatures>
-        <st:SpecialFeature id="30893225">
+      <sf:SpecialFeatures>
+        <sf:SpecialFeature id="30893225">
           <sf:FeatureAdditionalCode>43</sf:FeatureAdditionalCode>
           <sf:FeatureCode>540</sf:FeatureCode>
           <sf:MainFeature>1</sf:MainFeature>
-        </st:SpecialFeature>
-      </st:SpecialFeatures>
+        </sf:SpecialFeature>
+      </sf:SpecialFeatures>
       <st:StandBasicData>
         <st:Area>0.18</st:Area>
         <st:AreaDecrease>0</st:AreaDecrease>
@@ -55,8 +55,8 @@
         <st:SubGroup>1</st:SubGroup>
       </st:StandBasicData>
       <ts:TreeStandData>
-        <Ts:TreeStandDataDate date="2022-08-09" type="1">
-          <tst:TreeStrata>
+        <Ts:TreeStandDataDate type="1" date="2022-08-09">
+          <ts:TreeStrata>
             <Tst:TreeStratum id="218518888">
               <tst:Age>112</tst:Age>
               <tst:BasalArea>22.6</tst:BasalArea>
@@ -77,7 +77,7 @@
               <tst:TreeSpecies>2</tst:TreeSpecies>
               <tst:Volume>9.4</tst:Volume>
             </tst:TreeStratum>
-          </tst:TreeStrata>
+          </ts:TreeStrata>
         </ts:TreeStandDataDate>
         <Ts:TreeStandDataDate date="2024-01-01" type="2">
           <ts:TreeStandSummary id="110415979">
@@ -95,7 +95,7 @@
             <ts:Volume>184.4</ts:Volume>
             <ts:VolumeGrowth>2.5</ts:VolumeGrowth>
           </ts:TreeStandSummary>
-          <tst:TreeStrata>
+          <ts:TreeStrata>
             <Tst:TreeStratum id="218518890">
               <tst:Age>113</tst:Age>
               <tst:BasalArea>22.7</tst:BasalArea>
@@ -132,7 +132,7 @@
               <tst:Volume>9.8</tst:Volume>
               <tst:VolumeGrowth>0.16</tst:VolumeGrowth>
             </tst:TreeStratum>
-          </tst:TreeStrata>
+          </ts:TreeStrata>
         </ts:TreeStandDataDate>
         <Ts:TreeStandDataDate date="2034-01-01" type="3">
           <ts:TreeStandSummary id="125470790">
@@ -152,13 +152,13 @@
       </ts:TreeStandData>
     </st:Stand>
     <St:Stand id="37340005">
-      <st:SpecialFeatures>
-        <st:SpecialFeature id="31212919">
+      <sf:SpecialFeatures>
+        <sf:SpecialFeature id="31212919">
           <sf:FeatureAdditionalCode>43</sf:FeatureAdditionalCode>
           <sf:FeatureCode>540</sf:FeatureCode>
           <sf:MainFeature>1</sf:MainFeature>
-        </st:SpecialFeature>
-      </st:SpecialFeatures>
+        </sf:SpecialFeature>
+      </sf:SpecialFeatures>
       <st:StandBasicData>
         <st:Area>0.44</st:Area>
         <st:AreaDecrease>0</st:AreaDecrease>
@@ -205,7 +205,7 @@
       </st:StandBasicData>
       <ts:TreeStandData>
         <Ts:TreeStandDataDate date="2022-08-09" type="1">
-          <tst:TreeStrata>
+          <ts:TreeStrata>
             <Tst:TreeStratum id="218518909">
               <tst:Age>109</tst:Age>
               <tst:BasalArea>12.3</tst:BasalArea>
@@ -226,7 +226,7 @@
               <tst:TreeSpecies>2</tst:TreeSpecies>
               <tst:Volume>6.1</tst:Volume>
             </tst:TreeStratum>
-          </tst:TreeStrata>
+          </ts:TreeStrata>
         </ts:TreeStandDataDate>
         <Ts:TreeStandDataDate date="2024-01-01" type="2">
           <ts:TreeStandSummary id="110415988">
@@ -244,7 +244,7 @@
             <ts:Volume>101.7</ts:Volume>
             <ts:VolumeGrowth>1.87</ts:VolumeGrowth>
           </ts:TreeStandSummary>
-          <tst:TreeStrata>
+          <ts:TreeStrata>
             <Tst:TreeStratum id="218518911">
               <tst:Age>110</tst:Age>
               <tst:BasalArea>13.2</tst:BasalArea>
@@ -281,9 +281,9 @@
               <tst:Volume>6.6</tst:Volume>
               <tst:VolumeGrowth>0.13</tst:VolumeGrowth>
             </tst:TreeStratum>
-          </tst:TreeStrata>
+          </ts:TreeStrata>
         </ts:TreeStandDataDate>
-        <Ts:TreeStandDataDate date="2034-01-01" type="3">
+        <Ts:TreeStandDataDate type="3" date="2034-01-01">
           <ts:TreeStandSummary id="125470802">
             <ts:BasalArea>16.2</ts:BasalArea>
             <ts:DevelopmentClass>4</ts:DevelopmentClass>
@@ -301,13 +301,13 @@
       </ts:TreeStandData>
     </st:Stand>
     <St:Stand id="37340006">
-      <st:SpecialFeatures>
-        <st:SpecialFeature id="31357127">
+      <sf:SpecialFeatures>
+        <sf:SpecialFeature id="31357127">
           <sf:FeatureAdditionalCode>43</sf:FeatureAdditionalCode>
           <sf:FeatureCode>540</sf:FeatureCode>
           <sf:MainFeature>1</sf:MainFeature>
-        </st:SpecialFeature>
-      </st:SpecialFeatures>
+        </sf:SpecialFeature>
+      </sf:SpecialFeatures>
       <st:StandBasicData>
         <st:Area>0.25</st:Area>
         <st:AreaDecrease>0</st:AreaDecrease>
@@ -354,7 +354,7 @@
       </st:StandBasicData>
       <ts:TreeStandData>
         <Ts:TreeStandDataDate date="2022-08-09" type="1">
-          <tst:TreeStrata>
+          <ts:TreeStrata>
             <Tst:TreeStratum id="218519336">
               <tst:Age>118</tst:Age>
               <tst:BasalArea>14.7</tst:BasalArea>
@@ -375,9 +375,9 @@
               <tst:TreeSpecies>2</tst:TreeSpecies>
               <tst:Volume>8.6</tst:Volume>
             </tst:TreeStratum>
-          </tst:TreeStrata>
+          </ts:TreeStrata>
         </ts:TreeStandDataDate>
-        <Ts:TreeStandDataDate date="2024-01-01" type="2">
+        <Ts:TreeStandDataDate type="2" date="2024-01-01">
           <ts:TreeStandSummary id="110416189">
             <ts:BasalArea>16.4</ts:BasalArea>
             <ts:BranchBiomass>14.08</ts:BranchBiomass>
@@ -393,7 +393,7 @@
             <ts:Volume>127.6</ts:Volume>
             <ts:VolumeGrowth>2.23</ts:VolumeGrowth>
           </ts:TreeStandSummary>
-          <tst:TreeStrata>
+          <ts:TreeStrata>
             <Tst:TreeStratum id="218519410">
               <tst:Age>119</tst:Age>
               <tst:BasalArea>14.9</tst:BasalArea>
@@ -430,7 +430,7 @@
               <tst:Volume>9.1</tst:Volume>
               <tst:VolumeGrowth>0.15</tst:VolumeGrowth>
             </tst:TreeStratum>
-          </tst:TreeStrata>
+          </ts:TreeStrata>
         </ts:TreeStandDataDate>
         <Ts:TreeStandDataDate type="3" date="2034-01-01">
           <ts:TreeStandSummary id="125471060">

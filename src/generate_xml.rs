@@ -151,7 +151,7 @@ fn create_xml_element(
                 parent_tag = capitalize_word(&parent_tag);
             }
 
-            parent_tag = update_tag(&parent_tag);
+            //parent_tag = update_tag(&parent_tag);
 
             let mut element = BytesStart::new(parent_tag);
 
@@ -197,7 +197,7 @@ fn create_xml_element(
                     key_tag = capitalize_word(&key_tag);
                 }
 
-                key_tag = update_tag(&key_tag);
+                //key_tag = update_tag(&key_tag);
 
                 element = BytesStart::new(key_tag.clone());
 
@@ -249,8 +249,6 @@ fn create_xml_element(
             } else {
                 parent_tag = capitalize_word(&parent_tag);
             }
-            
-            let parent_tag = &update_tag(&parent_tag);
 
             let parent_prefix = &mut new_prefix.clone();
 
@@ -263,7 +261,7 @@ fn create_xml_element(
                     // Write the start tag for all non-attribute elements, skipping the first one
                     if !first_key.starts_with("__") && i > 0 {
                         writer
-                            .write_event(Event::Start(BytesStart::new(parent_tag)))
+                            .write_event(Event::Start(BytesStart::new(&parent_tag)))
                             .expect("Unable to write start tag"); 
                     } 
                 }
@@ -272,11 +270,11 @@ fn create_xml_element(
                 *parent_prefix = new_prefix.clone();
 
                 // Process each element of the array as a separate XML tag
-                create_xml_element(value, writer, parent_tag, prefixes, parent_prefix);
+                create_xml_element(value, writer, &parent_tag, prefixes, parent_prefix);
 
                 // Write the closing tag
                 writer
-                    .write_event(Event::End(BytesEnd::new(parent_tag)))
+                    .write_event(Event::End(BytesEnd::new(&parent_tag)))
                     .expect("Unable to write end tag");
             }
         },
@@ -345,21 +343,4 @@ fn get_current_prefix(
     }
 
     None
-}
-
-// If GIS data or common prefixes are found, update the tag
-fn update_tag(parent_tag: &str) -> String {
-    if parent_tag.contains(":TreeStrata") {
-        return "tst:TreeStrata".to_string()
-    }
-
-    if parent_tag.contains(":SpecialFeatures") {
-        return "st:SpecialFeatures".to_string()
-    }
-
-    if parent_tag.ends_with(":SpecialFeature") {
-        return "st:SpecialFeature".to_string()
-    }
-
-    parent_tag.to_string()
 }
