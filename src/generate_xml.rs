@@ -1,7 +1,7 @@
 use std::fs;
 use quick_xml::Writer;
 use quick_xml::events::{BytesEnd, BytesStart, BytesText, BytesDecl, Event};
-use serde_json::Value;
+use serde_json::{Value, from_str};
 use std::collections::HashMap;
 use std::io::Cursor;
 
@@ -36,9 +36,7 @@ use std::io::Cursor;
 /// }
 /// "#;
 /// 
-/// let json: serde_json::Value = serde_json::from_str(json_data).unwrap();
-/// 
-/// let xml_output = json_to_xml(&json, "People");
+/// let xml_output = json_to_xml(&json_data, "People");
 /// 
 /// println!("{}", xml_output);
 /// ```
@@ -69,13 +67,14 @@ use std::io::Cursor;
 /// - `root`: The name of the root element in the XML document.
 ///
 /// ## Returns:
-/// A string containing the XML representation of the input JSON, including necessary XML namespaces and attributes.
+/// A string containing the XML representation of the input JSON, including necessary XML attributes.
 ///
 /// ## Notes:
 /// - This function works recursively to handle nested structures and arrays.
 /// - Attributes are prefixed with `@` in the JSON input and are converted to XML attributes.
 /// - The order of attributes in the XML elements may differ.
-pub fn json_to_xml(json_value: &Value, root: &str) -> String {
+pub fn json_to_xml(json_string: &str, root: &str) -> String {
+    let json_value: Value = from_str(&json_string).unwrap();
 
     // Create the writer
     let mut writer = Writer::new_with_indent(Cursor::new(Vec::new()), b' ', 2); // 2-space indentation
@@ -95,7 +94,7 @@ pub fn json_to_xml(json_value: &Value, root: &str) -> String {
         ))))
         .expect("Unable to write comment");
     
-    create_xml_element(json_value, &mut writer, root);
+    create_xml_element(&json_value, &mut writer, root);
 
     // Write the closing tag
     writer

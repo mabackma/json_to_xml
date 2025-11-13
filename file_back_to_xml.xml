@@ -1,16 +1,453 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--Generated with json_to_xml 0.0.0-->
-<People xmlns:pr="http://standards.fi/schemas/personData/person" xmlns:addr="http://standards.fi/schemas/personData/addresses">
-  <Person id="1234">
-    <Addresses type="primary">
-      <City>Springfield</City>
-      <Street>123 Main St</Street>
-    </Addresses>
-    <Addresses type="secondary">
-      <City>Shelbyville</City>
-      <Street>456 Oak Ave</Street>
-    </Addresses>
-    <Age>30</Age>
-    <Name>John Doe</Name>
-  </Person>
-</People>
+<ForestPropertyData xmlns:tst="http://standardit.tapio.fi/schemas/forestData/treeStratum" schemaPackageSubversion="V20.01" xmlns:sf="http://standardit.tapio.fi/schemas/forestData/specialFeature" xmlns:ts="http://standardit.tapio.fi/schemas/forestData/treeStand" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:op="http://standardit.tapio.fi/schemas/forestData/operation" xmlns:co="http://standardit.tapio.fi/schemas/forestData/common" xmlns:st="http://standardit.tapio.fi/schemas/forestData/Stand" xmlns:gdt="http://standardit.tapio.fi/schemas/forestData/common/geometricDataTypes" xmlns:dts="http://standardit.tapio.fi/schemas/forestData/deadTreeStrata" schemaLocation="http://standardit.tapio.fi/schemas/forestData ForestData.xsd" xmlns:tss="http://standardit.tapio.fi/schemas/forestData/treeStandSummary" schemaPackageVersion="V20" xmlns="http://standardit.tapio.fi/schemas/forestData" xmlns:gml="http://www.opengis.net/gml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Stands>
+    <Stand id="37339713">
+      <SpecialFeatures>
+        <SpecialFeature id="30893225">
+          <FeatureAdditionalCode>43</FeatureAdditionalCode>
+          <FeatureCode>540</FeatureCode>
+          <MainFeature>1</MainFeature>
+        </SpecialFeature>
+      </SpecialFeatures>
+      <StandBasicData>
+        <Area>0.18</Area>
+        <AreaDecrease>0</AreaDecrease>
+        <CompleteState>1</CompleteState>
+        <CuttingRestriction>9</CuttingRestriction>
+        <DataSource>31</DataSource>
+        <DevelopmentClass>4</DevelopmentClass>
+        <DrainageState>1</DrainageState>
+        <FertilityClass>3</FertilityClass>
+        <GrowthPlaceDataSource>5</GrowthPlaceDataSource>
+        <Identifiers>
+          <Identifier>
+            <IdentifierType>5</IdentifierType>
+            <IdentifierValue>1 Metsäkeskus</IdentifierValue>
+          </Identifier>
+          <Identifier>
+            <IdentifierType>6</IdentifierType>
+            <IdentifierValue>4105</IdentifierValue>
+          </Identifier>
+        </Identifiers>
+        <MainGroup>1</MainGroup>
+        <MainTreeSpecies>1</MainTreeSpecies>
+        <PolygonGeometry>
+          <PointProperty>
+            <Point srsName="EPSG:3067">
+              <Coordinates>441637.4092,7548557.75</Coordinates>
+            </Point>
+          </PointProperty>
+          <PolygonProperty>
+            <Polygon srsName="EPSG:3067">
+              <Exterior>
+                <LinearRing>
+                  <Coordinates>441641.3522,7548549.2371 441673.8219,7548559.123 441680.9393,7548567.1663 441673.5242,7548576.1461 441658.3758,7548578.9393 441647.5539,7548578.3258 441623.7399,7548567.8169 441603.0191,7548556.377 441594.6629,7548544.6202 441611.664,7548538.7309 441641.3522,7548549.2371</Coordinates>
+                </LinearRing>
+              </Exterior>
+            </Polygon>
+          </PolygonProperty>
+        </PolygonGeometry>
+        <SilvicultureRestriction>9</SilvicultureRestriction>
+        <SoilType>10</SoilType>
+        <StandBasicDataDate>2022-08-09</StandBasicDataDate>
+        <StandNumber>9118</StandNumber>
+        <SubGroup>1</SubGroup>
+      </StandBasicData>
+      <TreeStandData>
+        <TreeStandDataDate date="2022-08-09" type="1">
+          <TreeStrata>
+            <TreeStratum id="218518888">
+              <Age>112</Age>
+              <BasalArea>22.6</BasalArea>
+              <MeanDiameter>27</MeanDiameter>
+              <MeanHeight>16</MeanHeight>
+              <Storey>1</Storey>
+              <StratumNumber>1</StratumNumber>
+              <TreeSpecies>1</TreeSpecies>
+              <Volume>173.7</Volume>
+            </TreeStratum>
+            <TreeStratum id="218518889">
+              <Age>98</Age>
+              <BasalArea>1.7</BasalArea>
+              <MeanDiameter>17.3</MeanDiameter>
+              <MeanHeight>11.4</MeanHeight>
+              <Storey>1</Storey>
+              <StratumNumber>2</StratumNumber>
+              <TreeSpecies>2</TreeSpecies>
+              <Volume>9.4</Volume>
+            </TreeStratum>
+          </TreeStrata>
+        </TreeStandDataDate>
+        <TreeStandDataDate date="2024-01-01" type="2">
+          <TreeStandSummary id="110415979">
+            <BasalArea>24.5</BasalArea>
+            <BranchBiomass>21.9</BranchBiomass>
+            <LeafBiomass>5.95</LeafBiomass>
+            <MeanAge>112</MeanAge>
+            <MeanDiameter>26.3</MeanDiameter>
+            <MeanHeight>15.5</MeanHeight>
+            <PulpWoodVolume>112.1</PulpWoodVolume>
+            <SawLogVolume>69.8</SawLogVolume>
+            <StemBiomass>71.13</StemBiomass>
+            <StemCount>708</StemCount>
+            <StumpBiomass>27.63</StumpBiomass>
+            <Volume>184.4</Volume>
+            <VolumeGrowth>2.5</VolumeGrowth>
+          </TreeStandSummary>
+          <TreeStrata>
+            <TreeStratum id="218518890">
+              <Age>113</Age>
+              <BasalArea>22.7</BasalArea>
+              <BranchBiomass>20.29</BranchBiomass>
+              <LeafBiomass>4.76</LeafBiomass>
+              <MeanDiameter>27</MeanDiameter>
+              <MeanHeight>15.8</MeanHeight>
+              <PulpWoodVolume>104.1</PulpWoodVolume>
+              <SawLogVolume>68.5</SawLogVolume>
+              <StemBiomass>67.15</StemBiomass>
+              <StemCount>576</StemCount>
+              <Storey>1</Storey>
+              <StratumNumber>1</StratumNumber>
+              <StumpBiomass>25.47</StumpBiomass>
+              <TreeSpecies>1</TreeSpecies>
+              <Volume>174.6</Volume>
+              <VolumeGrowth>2.34</VolumeGrowth>
+            </TreeStratum>
+            <TreeStratum id="218518891">
+              <Age>99</Age>
+              <BasalArea>1.8</BasalArea>
+              <BranchBiomass>1.61</BranchBiomass>
+              <LeafBiomass>1.19</LeafBiomass>
+              <MeanDiameter>16.6</MeanDiameter>
+              <MeanHeight>11.5</MeanHeight>
+              <PulpWoodVolume>8</PulpWoodVolume>
+              <SawLogVolume>1.4</SawLogVolume>
+              <StemBiomass>3.98</StemBiomass>
+              <StemCount>132</StemCount>
+              <Storey>1</Storey>
+              <StratumNumber>2</StratumNumber>
+              <StumpBiomass>2.16</StumpBiomass>
+              <TreeSpecies>2</TreeSpecies>
+              <Volume>9.8</Volume>
+              <VolumeGrowth>0.16</VolumeGrowth>
+            </TreeStratum>
+          </TreeStrata>
+        </TreeStandDataDate>
+        <TreeStandDataDate date="2034-01-01" type="3">
+          <TreeStandSummary id="125470790">
+            <BasalArea>25.8</BasalArea>
+            <DevelopmentClass>4</DevelopmentClass>
+            <MainTreeSpecies>1</MainTreeSpecies>
+            <MeanAge>122</MeanAge>
+            <MeanDiameter>27.5</MeanDiameter>
+            <MeanHeight>16.2</MeanHeight>
+            <PulpWoodVolume>121.6</PulpWoodVolume>
+            <SawLogVolume>78.2</SawLogVolume>
+            <StemCount>606</StemCount>
+            <Volume>201.7</Volume>
+            <VolumeGrowth>2.34</VolumeGrowth>
+          </TreeStandSummary>
+        </TreeStandDataDate>
+      </TreeStandData>
+    </Stand>
+    <Stand id="37340005">
+      <SpecialFeatures>
+        <SpecialFeature id="31212919">
+          <FeatureAdditionalCode>43</FeatureAdditionalCode>
+          <FeatureCode>540</FeatureCode>
+          <MainFeature>1</MainFeature>
+        </SpecialFeature>
+      </SpecialFeatures>
+      <StandBasicData>
+        <Area>0.44</Area>
+        <AreaDecrease>0</AreaDecrease>
+        <CompleteState>1</CompleteState>
+        <CuttingRestriction>9</CuttingRestriction>
+        <DataSource>31</DataSource>
+        <DevelopmentClass>4</DevelopmentClass>
+        <DrainageState>1</DrainageState>
+        <FertilityClass>4</FertilityClass>
+        <GrowthPlaceDataSource>5</GrowthPlaceDataSource>
+        <Identifiers>
+          <Identifier>
+            <IdentifierType>5</IdentifierType>
+            <IdentifierValue>1 Metsäkeskus</IdentifierValue>
+          </Identifier>
+          <Identifier>
+            <IdentifierType>6</IdentifierType>
+            <IdentifierValue>4105</IdentifierValue>
+          </Identifier>
+        </Identifiers>
+        <MainGroup>1</MainGroup>
+        <MainTreeSpecies>1</MainTreeSpecies>
+        <PolygonGeometry>
+          <PointProperty>
+            <Point srsName="EPSG:3067">
+              <Coordinates>441437.706,7548490.1042</Coordinates>
+            </Point>
+          </PointProperty>
+          <PolygonProperty>
+            <Polygon srsName="EPSG:3067">
+              <Exterior>
+                <LinearRing>
+                  <Coordinates>441510.6562,7548495.909 441508.1893,7548507.0522 441487.7551,7548513.5809 441461.2,7548517.6 441420.6921,7548508.6483 441389.4562,7548495.3562 441357.6051,7548484.8522 441354.436,7548473.0584 441355.6157,7548471.5427 441361.391,7548469.0112 441376.4236,7548464.5017 441376.4236,7548469.5011 441382.4185,7548471.5006 441396.4124,7548471.5006 441455.3899,7548484.4882 441463.3888,7548480.4888 441471.3792,7548477.4893 441471.6461,7548477.0899 441483.5022,7548477.9461 441510.6562,7548495.909</Coordinates>
+                </LinearRing>
+              </Exterior>
+            </Polygon>
+          </PolygonProperty>
+        </PolygonGeometry>
+        <SilvicultureRestriction>9</SilvicultureRestriction>
+        <SoilType>10</SoilType>
+        <StandBasicDataDate>2022-08-09</StandBasicDataDate>
+        <StandNumber>9122</StandNumber>
+        <SubGroup>1</SubGroup>
+      </StandBasicData>
+      <TreeStandData>
+        <TreeStandDataDate date="2022-08-09" type="1">
+          <TreeStrata>
+            <TreeStratum id="218518909">
+              <Age>109</Age>
+              <BasalArea>12.3</BasalArea>
+              <MeanDiameter>27.3</MeanDiameter>
+              <MeanHeight>14.6</MeanHeight>
+              <Storey>1</Storey>
+              <StratumNumber>1</StratumNumber>
+              <TreeSpecies>1</TreeSpecies>
+              <Volume>87.2</Volume>
+            </TreeStratum>
+            <TreeStratum id="218518910">
+              <Age>104</Age>
+              <BasalArea>1.1</BasalArea>
+              <MeanDiameter>20.7</MeanDiameter>
+              <MeanHeight>12.1</MeanHeight>
+              <Storey>1</Storey>
+              <StratumNumber>2</StratumNumber>
+              <TreeSpecies>2</TreeSpecies>
+              <Volume>6.1</Volume>
+            </TreeStratum>
+          </TreeStrata>
+        </TreeStandDataDate>
+        <TreeStandDataDate date="2024-01-01" type="2">
+          <TreeStandSummary id="110415988">
+            <BasalArea>14.3</BasalArea>
+            <BranchBiomass>12.61</BranchBiomass>
+            <LeafBiomass>3.52</LeafBiomass>
+            <MeanAge>110</MeanAge>
+            <MeanDiameter>25.6</MeanDiameter>
+            <MeanHeight>14.5</MeanHeight>
+            <PulpWoodVolume>63.9</PulpWoodVolume>
+            <SawLogVolume>34.9</SawLogVolume>
+            <StemBiomass>39.18</StemBiomass>
+            <StemCount>685</StemCount>
+            <StumpBiomass>15.59</StumpBiomass>
+            <Volume>101.7</Volume>
+            <VolumeGrowth>1.87</VolumeGrowth>
+          </TreeStandSummary>
+          <TreeStrata>
+            <TreeStratum id="218518911">
+              <Age>110</Age>
+              <BasalArea>13.2</BasalArea>
+              <BranchBiomass>11.48</BranchBiomass>
+              <LeafBiomass>2.72</LeafBiomass>
+              <MeanDiameter>26.2</MeanDiameter>
+              <MeanHeight>14.7</MeanHeight>
+              <PulpWoodVolume>59.2</PulpWoodVolume>
+              <SawLogVolume>33.2</SawLogVolume>
+              <StemBiomass>36.51</StemBiomass>
+              <StemCount>607</StemCount>
+              <Storey>1</Storey>
+              <StratumNumber>1</StratumNumber>
+              <StumpBiomass>14.09</StumpBiomass>
+              <TreeSpecies>1</TreeSpecies>
+              <Volume>95</Volume>
+              <VolumeGrowth>1.74</VolumeGrowth>
+            </TreeStratum>
+            <TreeStratum id="218518912">
+              <Age>105</Age>
+              <BasalArea>1.2</BasalArea>
+              <BranchBiomass>1.13</BranchBiomass>
+              <LeafBiomass>0.8</LeafBiomass>
+              <MeanDiameter>18.9</MeanDiameter>
+              <MeanHeight>12.2</MeanHeight>
+              <PulpWoodVolume>4.7</PulpWoodVolume>
+              <SawLogVolume>1.7</SawLogVolume>
+              <StemBiomass>2.66</StemBiomass>
+              <StemCount>78</StemCount>
+              <Storey>1</Storey>
+              <StratumNumber>2</StratumNumber>
+              <StumpBiomass>1.5</StumpBiomass>
+              <TreeSpecies>2</TreeSpecies>
+              <Volume>6.6</Volume>
+              <VolumeGrowth>0.13</VolumeGrowth>
+            </TreeStratum>
+          </TreeStrata>
+        </TreeStandDataDate>
+        <TreeStandDataDate date="2034-01-01" type="3">
+          <TreeStandSummary id="125470802">
+            <BasalArea>16.2</BasalArea>
+            <DevelopmentClass>4</DevelopmentClass>
+            <MainTreeSpecies>1</MainTreeSpecies>
+            <MeanAge>120</MeanAge>
+            <MeanDiameter>26.2</MeanDiameter>
+            <MeanHeight>15.2</MeanHeight>
+            <PulpWoodVolume>75.9</PulpWoodVolume>
+            <SawLogVolume>40.9</SawLogVolume>
+            <StemCount>612</StemCount>
+            <Volume>119.5</Volume>
+            <VolumeGrowth>1.91</VolumeGrowth>
+          </TreeStandSummary>
+        </TreeStandDataDate>
+      </TreeStandData>
+    </Stand>
+    <Stand id="37340006">
+      <SpecialFeatures>
+        <SpecialFeature id="31357127">
+          <FeatureAdditionalCode>43</FeatureAdditionalCode>
+          <FeatureCode>540</FeatureCode>
+          <MainFeature>1</MainFeature>
+        </SpecialFeature>
+      </SpecialFeatures>
+      <StandBasicData>
+        <Area>0.25</Area>
+        <AreaDecrease>0</AreaDecrease>
+        <CompleteState>1</CompleteState>
+        <CuttingRestriction>9</CuttingRestriction>
+        <DataSource>31</DataSource>
+        <DevelopmentClass>4</DevelopmentClass>
+        <DrainageState>1</DrainageState>
+        <FertilityClass>3</FertilityClass>
+        <GrowthPlaceDataSource>5</GrowthPlaceDataSource>
+        <Identifiers>
+          <Identifier>
+            <IdentifierType>5</IdentifierType>
+            <IdentifierValue>1 Metsäkeskus</IdentifierValue>
+          </Identifier>
+          <Identifier>
+            <IdentifierType>6</IdentifierType>
+            <IdentifierValue>4105</IdentifierValue>
+          </Identifier>
+        </Identifiers>
+        <MainGroup>1</MainGroup>
+        <MainTreeSpecies>1</MainTreeSpecies>
+        <PolygonGeometry>
+          <PointProperty>
+            <Point srsName="EPSG:3067">
+              <Coordinates>441660.4328,7548501.3556</Coordinates>
+            </Point>
+          </PointProperty>
+          <PolygonProperty>
+            <Polygon srsName="EPSG:3067">
+              <Exterior>
+                <LinearRing>
+                  <Coordinates>441678.9163,7548517.3713 441648.3034,7548510.5792 441621.0949,7548510.9034 441605.014,7548502.5562 441603.1601,7548487.1652 441628.2039,7548487.4612 441647.6848,7548490.8539 441669.636,7548489.6039 441691.8961,7548487.1163 441707.7798,7548488.5691 441707.2876,7548494.486 441714.2893,7548499.4848 441717.6388,7548500.1551 441704.2652,7548509.9292 441678.9163,7548517.3713</Coordinates>
+                </LinearRing>
+              </Exterior>
+            </Polygon>
+          </PolygonProperty>
+        </PolygonGeometry>
+        <SilvicultureRestriction>9</SilvicultureRestriction>
+        <SoilType>10</SoilType>
+        <StandBasicDataDate>2022-08-09</StandBasicDataDate>
+        <StandNumber>9123</StandNumber>
+        <SubGroup>1</SubGroup>
+      </StandBasicData>
+      <TreeStandData>
+        <TreeStandDataDate type="1" date="2022-08-09">
+          <TreeStrata>
+            <TreeStratum id="218519336">
+              <Age>118</Age>
+              <BasalArea>14.7</BasalArea>
+              <MeanDiameter>26.6</MeanDiameter>
+              <MeanHeight>16.4</MeanHeight>
+              <Storey>1</Storey>
+              <StratumNumber>1</StratumNumber>
+              <TreeSpecies>1</TreeSpecies>
+              <Volume>115</Volume>
+            </TreeStratum>
+            <TreeStratum id="218519337">
+              <Age>110</Age>
+              <BasalArea>1.4</BasalArea>
+              <MeanDiameter>23</MeanDiameter>
+              <MeanHeight>13.4</MeanHeight>
+              <Storey>1</Storey>
+              <StratumNumber>2</StratumNumber>
+              <TreeSpecies>2</TreeSpecies>
+              <Volume>8.6</Volume>
+            </TreeStratum>
+          </TreeStrata>
+        </TreeStandDataDate>
+        <TreeStandDataDate date="2024-01-01" type="2">
+          <TreeStandSummary id="110416189">
+            <BasalArea>16.4</BasalArea>
+            <BranchBiomass>14.08</BranchBiomass>
+            <LeafBiomass>4.09</LeafBiomass>
+            <MeanAge>118</MeanAge>
+            <MeanDiameter>26</MeanDiameter>
+            <MeanHeight>16.1</MeanHeight>
+            <PulpWoodVolume>80.5</PulpWoodVolume>
+            <SawLogVolume>44.6</SawLogVolume>
+            <StemBiomass>49.31</StemBiomass>
+            <StemCount>575</StemCount>
+            <StumpBiomass>18.2</StumpBiomass>
+            <Volume>127.6</Volume>
+            <VolumeGrowth>2.23</VolumeGrowth>
+          </TreeStandSummary>
+          <TreeStrata>
+            <TreeStratum id="218519410">
+              <Age>119</Age>
+              <BasalArea>14.9</BasalArea>
+              <BranchBiomass>12.54</BranchBiomass>
+              <LeafBiomass>3.05</LeafBiomass>
+              <MeanDiameter>26.3</MeanDiameter>
+              <MeanHeight>16.4</MeanHeight>
+              <PulpWoodVolume>74.8</PulpWoodVolume>
+              <SawLogVolume>41.6</SawLogVolume>
+              <StemBiomass>45.72</StemBiomass>
+              <StemCount>514</StemCount>
+              <Storey>1</Storey>
+              <StratumNumber>1</StratumNumber>
+              <StumpBiomass>16.14</StumpBiomass>
+              <TreeSpecies>1</TreeSpecies>
+              <Volume>118.5</Volume>
+              <VolumeGrowth>2.08</VolumeGrowth>
+            </TreeStratum>
+            <TreeStratum id="218519411">
+              <Age>111</Age>
+              <BasalArea>1.5</BasalArea>
+              <BranchBiomass>1.54</BranchBiomass>
+              <LeafBiomass>1.04</LeafBiomass>
+              <MeanDiameter>22.1</MeanDiameter>
+              <MeanHeight>13.4</MeanHeight>
+              <PulpWoodVolume>5.8</PulpWoodVolume>
+              <SawLogVolume>3</SawLogVolume>
+              <StemBiomass>3.59</StemBiomass>
+              <StemCount>61</StemCount>
+              <Storey>1</Storey>
+              <StratumNumber>2</StratumNumber>
+              <StumpBiomass>2.06</StumpBiomass>
+              <TreeSpecies>2</TreeSpecies>
+              <Volume>9.1</Volume>
+              <VolumeGrowth>0.15</VolumeGrowth>
+            </TreeStratum>
+          </TreeStrata>
+        </TreeStandDataDate>
+        <TreeStandDataDate type="3" date="2034-01-01">
+          <TreeStandSummary id="125471060">
+            <BasalArea>18.5</BasalArea>
+            <DevelopmentClass>4</DevelopmentClass>
+            <MainTreeSpecies>1</MainTreeSpecies>
+            <MeanAge>128</MeanAge>
+            <MeanDiameter>26.9</MeanDiameter>
+            <MeanHeight>16.6</MeanHeight>
+            <PulpWoodVolume>95.3</PulpWoodVolume>
+            <SawLogVolume>50.9</SawLogVolume>
+            <StemCount>542</StemCount>
+            <Volume>148.1</Volume>
+            <VolumeGrowth>2.21</VolumeGrowth>
+          </TreeStandSummary>
+        </TreeStandDataDate>
+      </TreeStandData>
+    </Stand>
+  </Stands>
+</ForestPropertyData>
