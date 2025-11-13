@@ -3,7 +3,7 @@
 ## Parameters
 
 - `json_string`: The input JSON string to be converted into XML. It can contain objects, arrays, and strings.  
-- `root`: The name of the root element in the XML document.  
+- `root`: The name of the root. It will become the root element of the XML if the JSON contains top-level `@` attributes. 
 
 ## Returns
 
