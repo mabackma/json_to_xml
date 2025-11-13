@@ -3,15 +3,15 @@ name = "json_to_xml"
 version = "0.1.0"
 authors = ["Marc Bäckman"]
 license = "MIT"
-description = "This converts json to XML"
+description = "Convert JSON to XML with attribute support"
 repository = "https://github.com/mabackma/json_to_xml"
 keywords = ["json", "xml", "parser"]
 categories = ["conversion", "data transformation"]
 edition = "2024"
 
 [dependencies]
-quick-xml = { version = "0.37.0", features = ["serialize"] }
+quick-xml = { version = "0.38.4", features = ["serialize"] }
 serde = { version = "1.0.207", features = ["derive"] }
 serde_json = "1.0.124"
 regex = "1.11.1"
-toml = "0.8.19"
+toml = "0.9.8"
