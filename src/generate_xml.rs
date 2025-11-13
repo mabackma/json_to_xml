@@ -105,13 +105,13 @@ pub fn json_to_xml(json_value: &Value, root: &str) -> String {
     String::from_utf8(writer.into_inner().into_inner()).expect("Failed to convert to UTF-8")
 }
 
-/// Helper function to get schema_generator version from the Cargo.toml file
+/// Helper function to get json_to_xml version from the Cargo.toml file
 pub fn get_dependency_version(file_path: &str) -> Option<String> {
     let content = fs::read_to_string(file_path).expect("Unable to read the file");
     let toml: Value = toml::de::from_str(&content).expect("Unable to parse TOML");
 
     toml.get("dependencies")
-        .and_then(|deps| deps.get("schema_generator"))
+        .and_then(|deps| deps.get("json_to_xml"))
         .and_then(|dep| {
             if dep.is_object() {
                 dep.get("version").and_then(|v| v.as_str()).map(|s| s.to_string())
