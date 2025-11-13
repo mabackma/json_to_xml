@@ -1,4 +1,3 @@
-use crate::json_utils::extract_prefixes;
 use crate::string_utils::capitalize_word;
 
 use std::fs;
@@ -98,10 +97,7 @@ pub fn json_to_xml(json_value: &Value, root: &str) -> String {
         ))))
         .expect("Unable to write comment");
     
-    // Extract the prefixes from the root element
-    let prefixes = extract_prefixes(json_value);
-    
-    create_xml_element(json_value, &mut writer, root, &prefixes);
+    create_xml_element(json_value, &mut writer, root);
 
     // Write the closing tag
     writer
@@ -131,8 +127,7 @@ pub fn get_dependency_version(file_path: &str) -> Option<String> {
 fn create_xml_element(
     json_data: &Value, 
     writer: &mut Writer<Cursor<Vec<u8>>>, 
-    parent_tag: &str, 
-    prefixes: &HashMap<String, String>
+    parent_tag: &str
 ) {
     match json_data {
 
@@ -201,7 +196,7 @@ fn create_xml_element(
                     }
 
 					// Recursively process nested elements
-					create_xml_element(value, writer, key, prefixes);
+					create_xml_element(value, writer, key);
 					
                     // Write the closing tag if the value is not an array
                     if !value.is_array() {
@@ -233,7 +228,7 @@ fn create_xml_element(
                 }
 
                 // Process each element of the array as a separate XML tag
-                create_xml_element(value, writer, &parent_tag, prefixes);
+                create_xml_element(value, writer, &parent_tag);
 
                 // Write the closing tag
                 writer
