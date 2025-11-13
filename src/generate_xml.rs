@@ -140,7 +140,7 @@ fn create_xml_element(
             let attributes: HashMap<_, _> = map
                 .iter()
                 .filter(|(key, _)| key.starts_with("@"))
-                .map(|(key, value)| (&key[2..], value))
+                .map(|(key, value)| (&key[1..], value))
                 .collect();
 
             // Add attributes to the element
