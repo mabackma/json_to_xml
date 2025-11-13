@@ -1,5 +1,20 @@
 # JSON to XML
 
+## Parameters
+
+- `json_string`: The input JSON string to be converted into XML. It can contain objects, arrays, and strings.  
+- `root`: The name of the root element in the XML document.  
+
+## Returns
+
+A string containing the XML representation of the input JSON, including necessary XML attributes.  
+
+## Notes
+
+- This function works recursively to handle nested structures and arrays.  
+- Attributes are prefixed with `@` in the JSON input and are converted to XML attributes.  
+- The order of attributes in the XML elements may differ.  
+
 ## Example
 
 ```rust
