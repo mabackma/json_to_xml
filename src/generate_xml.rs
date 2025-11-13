@@ -1,5 +1,3 @@
-use crate::string_utils::capitalize_word;
-
 use std::fs;
 use quick_xml::Writer;
 use quick_xml::events::{BytesEnd, BytesStart, BytesText, BytesDecl, Event};
@@ -16,22 +14,22 @@ use std::io::Cursor;
 /// 
 /// let json_data = r#"
 /// {
-///     "__xmlns:addr": "http://standards.fi/schemas/personData/addresses",
-///     "__xmlns:pr": "http://standards.fi/schemas/personData/person",
+///     "@xmlns:addr": "http://standards.fi/schemas/personData/addresses",
+///     "@xmlns:pr": "http://standards.fi/schemas/personData/person",
 ///     "person": {
 ///         "name": "John Doe",
 ///         "age": "30",
-///         "__id": "1234",
+///         "@id": "1234",
 ///         "addresses": [
 ///             {
 ///                 "street": "123 Main St",
 ///                 "city": "Springfield",
-///                 "__type": "primary"
+///                 "@type": "primary"
 ///             },
 ///             {
 ///                 "street": "456 Oak Ave",
 ///                 "city": "Shelbyville",
-///                 "__type": "secondary"
+///                 "@type": "secondary"
 ///             }
 ///         ]
 ///     }
@@ -141,7 +139,7 @@ fn create_xml_element(
             // Extract attributes
             let attributes: HashMap<_, _> = map
                 .iter()
-                .filter(|(key, _)| key.starts_with("__"))
+                .filter(|(key, _)| key.starts_with("@"))
                 .map(|(key, value)| (&key[2..], value))
                 .collect();
 
@@ -184,7 +182,7 @@ fn create_xml_element(
                 }
 
                 // Skip attributes
-                if key.starts_with("__") || key == "$text" {
+                if key.starts_with("@") || key == "$text" {
                     continue;
                 } else {
 
@@ -220,7 +218,7 @@ fn create_xml_element(
                     let first_key = value.as_object().unwrap().keys().next().unwrap();
 
                     // Write the start tag for all non-attribute elements, skipping the first one
-                    if !first_key.starts_with("__") && i > 0 {
+                    if !first_key.starts_with("@") && i > 0 {
                         writer
                             .write_event(Event::Start(BytesStart::new(&parent_tag)))
                             .expect("Unable to write start tag"); 
@@ -270,7 +268,7 @@ fn is_attribute_key(value: &Value) -> bool {
         && value.as_object()
             .unwrap()
             .keys()
-            .any(|key| key.starts_with("__")) // Check if any key is an attribute
+            .any(|key| key.starts_with("@")) // Check if any key is an attribute
 }
 
 // Check if any key of the first object in array is an attribute
@@ -281,4 +279,13 @@ fn is_array_with_attribute_key(value: &Value) -> bool {
             .first()
             .map(|v| is_attribute_key(v))
             .unwrap_or(false)
+}
+
+/// Capitalizes the first letter of a word.
+fn capitalize_word(word: &str) -> String {
+    let mut chars = word.chars();
+    match chars.next() {
+        None => String::new(),
+        Some(f) => f.to_uppercase().collect::<String>() + chars.as_str(),
+    }
 }
