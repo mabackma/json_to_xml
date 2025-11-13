@@ -33,7 +33,7 @@ let xml_output = json_to_xml(&json_data, "People");
 
 println!("{}", xml_output);
 
-Output
+## Output
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
