@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--Generated with schema_generator 0.0.0-->
-<ForestPropertyData schemaLocation="http://standardit.tapio.fi/schemas/forestData ForestData.xsd" xmlns:gdt="http://standardit.tapio.fi/schemas/forestData/common/geometricDataTypes" xmlns:sf="http://standardit.tapio.fi/schemas/forestData/specialFeature" xmlns="http://standardit.tapio.fi/schemas/forestData" schemaPackageSubversion="V20.01" schemaPackageVersion="V20" xmlns:tss="http://standardit.tapio.fi/schemas/forestData/treeStandSummary" xmlns:co="http://standardit.tapio.fi/schemas/forestData/common" xmlns:op="http://standardit.tapio.fi/schemas/forestData/operation" xmlns:tst="http://standardit.tapio.fi/schemas/forestData/treeStratum" xmlns:ts="http://standardit.tapio.fi/schemas/forestData/treeStand" xmlns:gml="http://www.opengis.net/gml" xmlns:st="http://standardit.tapio.fi/schemas/forestData/Stand" xmlns:dts="http://standardit.tapio.fi/schemas/forestData/deadTreeStrata" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<!--Generated with json_to_xml 0.0.0-->
+<ForestPropertyData xmlns="http://standardit.tapio.fi/schemas/forestData" xmlns:gml="http://www.opengis.net/gml" schemaLocation="http://standardit.tapio.fi/schemas/forestData ForestData.xsd" schemaPackageSubversion="V20.01" xmlns:co="http://standardit.tapio.fi/schemas/forestData/common" xmlns:tst="http://standardit.tapio.fi/schemas/forestData/treeStratum" xmlns:dts="http://standardit.tapio.fi/schemas/forestData/deadTreeStrata" xmlns:sf="http://standardit.tapio.fi/schemas/forestData/specialFeature" xmlns:tss="http://standardit.tapio.fi/schemas/forestData/treeStandSummary" xmlns:op="http://standardit.tapio.fi/schemas/forestData/operation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:st="http://standardit.tapio.fi/schemas/forestData/Stand" schemaPackageVersion="V20" xmlns:ts="http://standardit.tapio.fi/schemas/forestData/treeStand" xmlns:gdt="http://standardit.tapio.fi/schemas/forestData/common/geometricDataTypes" xmlns:xlink="http://www.w3.org/1999/xlink">
   <Stands>
     <Stand id="37339713">
       <SpecialFeatures>
@@ -79,7 +79,7 @@
             </TreeStratum>
           </TreeStrata>
         </TreeStandDataDate>
-        <TreeStandDataDate type="2" date="2024-01-01">
+        <TreeStandDataDate date="2024-01-01" type="2">
           <TreeStandSummary id="110415979">
             <BasalArea>24.5</BasalArea>
             <BranchBiomass>21.9</BranchBiomass>
@@ -283,7 +283,7 @@
             </TreeStratum>
           </TreeStrata>
         </TreeStandDataDate>
-        <TreeStandDataDate type="3" date="2034-01-01">
+        <TreeStandDataDate date="2034-01-01" type="3">
           <TreeStandSummary id="125470802">
             <BasalArea>16.2</BasalArea>
             <DevelopmentClass>4</DevelopmentClass>
@@ -377,7 +377,7 @@
             </TreeStratum>
           </TreeStrata>
         </TreeStandDataDate>
-        <TreeStandDataDate date="2024-01-01" type="2">
+        <TreeStandDataDate type="2" date="2024-01-01">
           <TreeStandSummary id="110416189">
             <BasalArea>16.4</BasalArea>
             <BranchBiomass>14.08</BranchBiomass>
@@ -432,7 +432,7 @@
             </TreeStratum>
           </TreeStrata>
         </TreeStandDataDate>
-        <TreeStandDataDate date="2034-01-01" type="3">
+        <TreeStandDataDate type="3" date="2034-01-01">
           <TreeStandSummary id="125471060">
             <BasalArea>18.5</BasalArea>
             <DevelopmentClass>4</DevelopmentClass>

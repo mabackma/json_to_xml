@@ -92,7 +92,7 @@ pub fn json_to_xml(json_value: &Value, root: &str) -> String {
     writer
         .write_event(
             Event::Comment(BytesText::new(&format!(
-            "Generated with schema_generator {}", 
+            "Generated with json_to_xml {}", 
             version
         ))))
         .expect("Unable to write comment");
