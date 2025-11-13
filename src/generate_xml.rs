@@ -101,7 +101,7 @@ pub fn json_to_xml(json_value: &Value, root: &str) -> String {
     // Extract the prefixes from the root element
     let prefixes = extract_prefixes(json_value);
     
-    create_xml_element(json_value, &mut writer, root, &prefixes, &mut "".to_string());
+    create_xml_element(json_value, &mut writer, root, &prefixes);
 
     // Write the closing tag
     writer
@@ -132,26 +132,14 @@ fn create_xml_element(
     json_data: &Value, 
     writer: &mut Writer<Cursor<Vec<u8>>>, 
     parent_tag: &str, 
-    prefixes: &HashMap<String, String>, 
-    current_prefix: &str
+    prefixes: &HashMap<String, String>
 ) {
     match json_data {
 
         // Handle objects
         Value::Object(map) => {
-            // Get the updated prefix for the current tag
-            let new_prefix = get_current_prefix(parent_tag, prefixes).unwrap_or(current_prefix.to_string()).to_string();
-
             let mut parent_tag = parent_tag.to_string();
-
-            // Create the parent tag with the prefix
-            if !parent_tag.contains(":") && !new_prefix.is_empty() {
-                parent_tag = format!("{}:{}", new_prefix, capitalize_word(&parent_tag));
-            } else {
-                parent_tag = capitalize_word(&parent_tag);
-            }
-
-            //parent_tag = update_tag(&parent_tag);
+            parent_tag = capitalize_word(&parent_tag);
 
             let mut element = BytesStart::new(parent_tag);
 
@@ -185,19 +173,9 @@ fn create_xml_element(
 
             // Process key-value pairs
             for (key, value) in map {
-
-                // Get the updated prefix for the current key
-                let key_prefix = get_current_prefix(key, prefixes).unwrap_or(new_prefix.to_string()).to_string();
-
                 // Reset the element for the next iteration				  
                 let mut key_tag = key.to_string();
-                if !key_tag.contains(":") && !key_prefix.is_empty() {
-                    key_tag = format!("{}:{}", key_prefix, capitalize_word(&key));
-                } else {
-                    key_tag = capitalize_word(&key_tag);
-                }
-
-                //key_tag = update_tag(&key_tag);
+                key_tag = capitalize_word(&key_tag);
 
                 element = BytesStart::new(key_tag.clone());
 
@@ -223,7 +201,7 @@ fn create_xml_element(
                     }
 
 					// Recursively process nested elements
-					create_xml_element(value, writer, key, prefixes, &key_prefix);
+					create_xml_element(value, writer, key, prefixes);
 					
                     // Write the closing tag if the value is not an array
                     if !value.is_array() {
@@ -237,21 +215,9 @@ fn create_xml_element(
 
         // Handle arrays by processing each item inside the array
         Value::Array(arr) => {
-
-            // Get the prefix for the array elements
-            let new_prefix = get_current_prefix(parent_tag, prefixes).unwrap_or(current_prefix.to_string()).to_string();
-
             let mut parent_tag = parent_tag.to_string();
-
-            // Create the parent tag with the prefix
-            if !parent_tag.contains(":") && !new_prefix.is_empty() {
-                parent_tag = format!("{}:{}", new_prefix, capitalize_word(&parent_tag));
-            } else {
-                parent_tag = capitalize_word(&parent_tag);
-            }
-
-            let parent_prefix = &mut new_prefix.clone();
-
+            parent_tag = capitalize_word(&parent_tag);
+            
             for (i, value) in arr.iter().enumerate() {
 
                 // Get the first key of the object 
@@ -266,11 +232,8 @@ fn create_xml_element(
                     } 
                 }
 
-                // Reset the parent prefix for the next iteration
-                *parent_prefix = new_prefix.clone();
-
                 // Process each element of the array as a separate XML tag
-                create_xml_element(value, writer, &parent_tag, prefixes, parent_prefix);
+                create_xml_element(value, writer, &parent_tag, prefixes);
 
                 // Write the closing tag
                 writer
@@ -323,24 +286,4 @@ fn is_array_with_attribute_key(value: &Value) -> bool {
             .first()
             .map(|v| is_attribute_key(v))
             .unwrap_or(false)
-}
-
-// Get the current prefix for the tag
-fn get_current_prefix(
-    parent_tag: &str, 
-    prefixes: &HashMap<String, String>
-) -> Option<String> {
-
-    // Check if any namespaces are contained in the parent tag
-    for (key, value) in prefixes {
-        if parent_tag == key {
-            return Some(value.to_string());
-        }
-
-        if parent_tag.starts_with(&*key) {
-            return Some(value.to_string());
-        }
-    }
-
-    None
 }
