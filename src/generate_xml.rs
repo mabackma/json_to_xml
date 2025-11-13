@@ -12,7 +12,7 @@ use std::io::Cursor;
 /// ```rust
 /// use json_to_xml::generate_xml::json_to_xml;
 /// 
-/// let json_data = r#"
+/// let json_string = r#"
 /// {
 ///     "@xmlns:addr": "http://standards.fi/schemas/personData/addresses",
 ///     "@xmlns:pr": "http://standards.fi/schemas/personData/person",
@@ -36,9 +36,9 @@ use std::io::Cursor;
 /// }
 /// "#;
 /// 
-/// let xml_output = json_to_xml(&json_data, "People");
+/// let xml_string = json_to_xml(&json_string, "People");
 /// 
-/// println!("{}", xml_output);
+/// println!("{}", xml_string);
 /// ```
 /// 
 /// ## Expected Output (XML):

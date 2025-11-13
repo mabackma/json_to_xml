@@ -21,7 +21,7 @@ A string containing the XML representation of the input JSON, including necessar
 ```rust
 use json_to_xml::generate_xml::json_to_xml;
 
-let json_data = r#"
+let json_string = r#"
 {
     "@xmlns:addr": "http://standards.fi/schemas/personData/addresses",
     "@xmlns:pr": "http://standards.fi/schemas/personData/person",
@@ -45,9 +45,9 @@ let json_data = r#"
 }
 "#;
 
-let xml_output = json_to_xml(&json_data, "People");
+let xml_string = json_to_xml(&json_string, "People");
 
-println!("{}", xml_output);
+println!("{}", xml_string);
 ````
 
 ## Output
