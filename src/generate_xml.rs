@@ -73,7 +73,7 @@ use std::io::Cursor;
 /// - This function works recursively to handle nested structures and arrays.
 /// - Attributes are prefixed with `@` in the JSON input and are converted to XML attributes.
 /// - The order of attributes in the XML elements may differ.
-/// - The root start and end tags will only be included if the top-level JSON object contains `@` attributes.
+/// - The root start and end tags will be included only if the top-level JSON object contains `@` attributes.
 pub fn json_to_xml(json_string: &str, root: &str) -> String {
     let json_value: Value = from_str(&json_string).unwrap();
 

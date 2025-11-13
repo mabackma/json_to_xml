@@ -14,7 +14,7 @@ A string containing the XML representation of the input JSON, including necessar
 - This function works recursively to handle nested structures and arrays.  
 - Attributes are prefixed with `@` in the JSON input and are converted to XML attributes.  
 - The order of attributes in the XML elements may differ.  
-- The root start and end tags will only be included if the top-level JSON object contains `@` attributes.
+- The root start and end tags will included only if the top-level JSON object contains `@` attributes.
 
 ## Example
 
