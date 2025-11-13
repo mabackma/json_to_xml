@@ -38,7 +38,7 @@ println!("{}", xml_output);
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
-<!--Generated with schema_generator 0.1.0-->
+<!--Generated with json_to_xml 0.1.0-->
 <People xmlns:pr="http://standards.fi/schemas/personData/person" xmlns:addr="http://standards.fi/schemas/personData/addresses">
   <Person id="1234">
     <Addresses type="primary">
