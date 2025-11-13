@@ -6,7 +6,7 @@ license = "MIT"
 description = "Convert JSON to XML with attribute support"
 repository = "https://github.com/mabackma/json_to_xml"
 keywords = ["json", "xml", "parser"]
-categories = ["conversion", "data transformation"]
+categories = ["parsing", "development-tools"]
 edition = "2024"
 
 [dependencies]
