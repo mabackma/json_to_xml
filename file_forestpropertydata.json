@@ -1,0 +1,541 @@
+{
+  "__schemaLocation": "http://standardit.tapio.fi/schemas/forestData ForestData.xsd",
+  "__schemaPackageSubversion": "V20.01",
+  "__schemaPackageVersion": "V20",
+  "__xmlns": "http://standardit.tapio.fi/schemas/forestData",
+  "__xmlns:co": "http://standardit.tapio.fi/schemas/forestData/common",
+  "__xmlns:dts": "http://standardit.tapio.fi/schemas/forestData/deadTreeStrata",
+  "__xmlns:gdt": "http://standardit.tapio.fi/schemas/forestData/common/geometricDataTypes",
+  "__xmlns:gml": "http://www.opengis.net/gml",
+  "__xmlns:op": "http://standardit.tapio.fi/schemas/forestData/operation",
+  "__xmlns:sf": "http://standardit.tapio.fi/schemas/forestData/specialFeature",
+  "__xmlns:st": "http://standardit.tapio.fi/schemas/forestData/Stand",
+  "__xmlns:ts": "http://standardit.tapio.fi/schemas/forestData/treeStand",
+  "__xmlns:tss": "http://standardit.tapio.fi/schemas/forestData/treeStandSummary",
+  "__xmlns:tst": "http://standardit.tapio.fi/schemas/forestData/treeStratum",
+  "__xmlns:xlink": "http://www.w3.org/1999/xlink",
+  "__xmlns:xsi": "http://www.w3.org/2001/XMLSchema-instance",
+  "stands": {
+    "stand": [
+      {
+        "__id": "37339713",
+        "specialFeatures": {
+          "specialFeature": {
+            "__id": "30893225",
+            "featureAdditionalCode": 43,
+            "featureCode": 540,
+            "mainFeature": 1
+          }
+        },
+        "standBasicData": {
+          "area": 0.18,
+          "areaDecrease": 0.0,
+          "completeState": 1,
+          "cuttingRestriction": 9,
+          "dataSource": 31,
+          "developmentClass": 4,
+          "drainageState": 1,
+          "fertilityClass": 3,
+          "growthPlaceDataSource": 5,
+          "identifiers": {
+            "identifier": [
+              {
+                "identifierType": 5,
+                "identifierValue": "1 Metsäkeskus"
+              },
+              {
+                "identifierType": 6,
+                "identifierValue": "4105"
+              }
+            ]
+          },
+          "mainGroup": 1,
+          "mainTreeSpecies": 1,
+          "polygonGeometry": {
+            "pointProperty": {
+              "point": {
+                "__srsName": "EPSG:3067",
+                "coordinates": "441637.4092,7548557.75"
+              }
+            },
+            "polygonProperty": {
+              "polygon": {
+                "__srsName": "EPSG:3067",
+                "exterior": {
+                  "linearRing": {
+                    "coordinates": "441641.3522,7548549.2371 441673.8219,7548559.123 441680.9393,7548567.1663 441673.5242,7548576.1461 441658.3758,7548578.9393 441647.5539,7548578.3258 441623.7399,7548567.8169 441603.0191,7548556.377 441594.6629,7548544.6202 441611.664,7548538.7309 441641.3522,7548549.2371"
+                  }
+                }
+              }
+            }
+          },
+          "silvicultureRestriction": 9,
+          "soilType": 10,
+          "standBasicDataDate": "2022-08-09",
+          "standNumber": 9118,
+          "subGroup": 1
+        },
+        "treeStandData": {
+          "treeStandDataDate": [
+            {
+              "__date": "2022-08-09",
+              "__type": "1",
+              "treeStrata": {
+                "treeStratum": [
+                  {
+                    "__id": "218518888",
+                    "age": 112,
+                    "basalArea": 22.6,
+                    "meanDiameter": 27.0,
+                    "meanHeight": 16.0,
+                    "storey": 1,
+                    "stratumNumber": 1,
+                    "treeSpecies": 1,
+                    "volume": 173.7
+                  },
+                  {
+                    "__id": "218518889",
+                    "age": 98,
+                    "basalArea": 1.7,
+                    "meanDiameter": 17.3,
+                    "meanHeight": 11.4,
+                    "storey": 1,
+                    "stratumNumber": 2,
+                    "treeSpecies": 2,
+                    "volume": 9.4
+                  }
+                ]
+              }
+            },
+            {
+              "__date": "2024-01-01",
+              "__type": "2",
+              "treeStandSummary": {
+                "__id": "110415979",
+                "basalArea": 24.5,
+                "branchBiomass": 21.9,
+                "leafBiomass": 5.95,
+                "meanAge": 112,
+                "meanDiameter": 26.3,
+                "meanHeight": 15.5,
+                "pulpWoodVolume": 112.1,
+                "sawLogVolume": 69.8,
+                "stemBiomass": 71.13,
+                "stemCount": 708,
+                "stumpBiomass": 27.63,
+                "volume": 184.4,
+                "volumeGrowth": 2.5
+              },
+              "treeStrata": {
+                "treeStratum": [
+                  {
+                    "__id": "218518890",
+                    "age": 113,
+                    "basalArea": 22.7,
+                    "branchBiomass": 20.29,
+                    "leafBiomass": 4.76,
+                    "meanDiameter": 27.0,
+                    "meanHeight": 15.8,
+                    "pulpWoodVolume": 104.1,
+                    "sawLogVolume": 68.5,
+                    "stemBiomass": 67.15,
+                    "stemCount": 576,
+                    "storey": 1,
+                    "stratumNumber": 1,
+                    "stumpBiomass": 25.47,
+                    "treeSpecies": 1,
+                    "volume": 174.6,
+                    "volumeGrowth": 2.34
+                  },
+                  {
+                    "__id": "218518891",
+                    "age": 99,
+                    "basalArea": 1.8,
+                    "branchBiomass": 1.61,
+                    "leafBiomass": 1.19,
+                    "meanDiameter": 16.6,
+                    "meanHeight": 11.5,
+                    "pulpWoodVolume": 8.0,
+                    "sawLogVolume": 1.4,
+                    "stemBiomass": 3.98,
+                    "stemCount": 132,
+                    "storey": 1,
+                    "stratumNumber": 2,
+                    "stumpBiomass": 2.16,
+                    "treeSpecies": 2,
+                    "volume": 9.8,
+                    "volumeGrowth": 0.16
+                  }
+                ]
+              }
+            },
+            {
+              "__date": "2034-01-01",
+              "__type": "3",
+              "treeStandSummary": {
+                "__id": "125470790",
+                "basalArea": 25.8,
+                "developmentClass": 4,
+                "mainTreeSpecies": 1,
+                "meanAge": 122,
+                "meanDiameter": 27.5,
+                "meanHeight": 16.2,
+                "pulpWoodVolume": 121.6,
+                "sawLogVolume": 78.2,
+                "stemCount": 606,
+                "volume": 201.7,
+                "volumeGrowth": 2.34
+              }
+            }
+          ]
+        }
+      },
+      {
+        "__id": "37340005",
+        "specialFeatures": {
+          "specialFeature": {
+            "__id": "31212919",
+            "featureAdditionalCode": 43,
+            "featureCode": 540,
+            "mainFeature": 1
+          }
+        },
+        "standBasicData": {
+          "area": 0.44,
+          "areaDecrease": 0.0,
+          "completeState": 1,
+          "cuttingRestriction": 9,
+          "dataSource": 31,
+          "developmentClass": 4,
+          "drainageState": 1,
+          "fertilityClass": 4,
+          "growthPlaceDataSource": 5,
+          "identifiers": {
+            "identifier": [
+              {
+                "identifierType": 5,
+                "identifierValue": "1 Metsäkeskus"
+              },
+              {
+                "identifierType": 6,
+                "identifierValue": "4105"
+              }
+            ]
+          },
+          "mainGroup": 1,
+          "mainTreeSpecies": 1,
+          "polygonGeometry": {
+            "pointProperty": {
+              "point": {
+                "__srsName": "EPSG:3067",
+                "coordinates": "441437.706,7548490.1042"
+              }
+            },
+            "polygonProperty": {
+              "polygon": {
+                "__srsName": "EPSG:3067",
+                "exterior": {
+                  "linearRing": {
+                    "coordinates": "441510.6562,7548495.909 441508.1893,7548507.0522 441487.7551,7548513.5809 441461.2,7548517.6 441420.6921,7548508.6483 441389.4562,7548495.3562 441357.6051,7548484.8522 441354.436,7548473.0584 441355.6157,7548471.5427 441361.391,7548469.0112 441376.4236,7548464.5017 441376.4236,7548469.5011 441382.4185,7548471.5006 441396.4124,7548471.5006 441455.3899,7548484.4882 441463.3888,7548480.4888 441471.3792,7548477.4893 441471.6461,7548477.0899 441483.5022,7548477.9461 441510.6562,7548495.909"
+                  }
+                }
+              }
+            }
+          },
+          "silvicultureRestriction": 9,
+          "soilType": 10,
+          "standBasicDataDate": "2022-08-09",
+          "standNumber": 9122,
+          "subGroup": 1
+        },
+        "treeStandData": {
+          "treeStandDataDate": [
+            {
+              "__date": "2022-08-09",
+              "__type": "1",
+              "treeStrata": {
+                "treeStratum": [
+                  {
+                    "__id": "218518909",
+                    "age": 109,
+                    "basalArea": 12.3,
+                    "meanDiameter": 27.3,
+                    "meanHeight": 14.6,
+                    "storey": 1,
+                    "stratumNumber": 1,
+                    "treeSpecies": 1,
+                    "volume": 87.2
+                  },
+                  {
+                    "__id": "218518910",
+                    "age": 104,
+                    "basalArea": 1.1,
+                    "meanDiameter": 20.7,
+                    "meanHeight": 12.1,
+                    "storey": 1,
+                    "stratumNumber": 2,
+                    "treeSpecies": 2,
+                    "volume": 6.1
+                  }
+                ]
+              }
+            },
+            {
+              "__date": "2024-01-01",
+              "__type": "2",
+              "treeStandSummary": {
+                "__id": "110415988",
+                "basalArea": 14.3,
+                "branchBiomass": 12.61,
+                "leafBiomass": 3.52,
+                "meanAge": 110,
+                "meanDiameter": 25.6,
+                "meanHeight": 14.5,
+                "pulpWoodVolume": 63.9,
+                "sawLogVolume": 34.9,
+                "stemBiomass": 39.18,
+                "stemCount": 685,
+                "stumpBiomass": 15.59,
+                "volume": 101.7,
+                "volumeGrowth": 1.87
+              },
+              "treeStrata": {
+                "treeStratum": [
+                  {
+                    "__id": "218518911",
+                    "age": 110,
+                    "basalArea": 13.2,
+                    "branchBiomass": 11.48,
+                    "leafBiomass": 2.72,
+                    "meanDiameter": 26.2,
+                    "meanHeight": 14.7,
+                    "pulpWoodVolume": 59.2,
+                    "sawLogVolume": 33.2,
+                    "stemBiomass": 36.51,
+                    "stemCount": 607,
+                    "storey": 1,
+                    "stratumNumber": 1,
+                    "stumpBiomass": 14.09,
+                    "treeSpecies": 1,
+                    "volume": 95.0,
+                    "volumeGrowth": 1.74
+                  },
+                  {
+                    "__id": "218518912",
+                    "age": 105,
+                    "basalArea": 1.2,
+                    "branchBiomass": 1.13,
+                    "leafBiomass": 0.8,
+                    "meanDiameter": 18.9,
+                    "meanHeight": 12.2,
+                    "pulpWoodVolume": 4.7,
+                    "sawLogVolume": 1.7,
+                    "stemBiomass": 2.66,
+                    "stemCount": 78,
+                    "storey": 1,
+                    "stratumNumber": 2,
+                    "stumpBiomass": 1.5,
+                    "treeSpecies": 2,
+                    "volume": 6.6,
+                    "volumeGrowth": 0.13
+                  }
+                ]
+              }
+            },
+            {
+              "__date": "2034-01-01",
+              "__type": "3",
+              "treeStandSummary": {
+                "__id": "125470802",
+                "basalArea": 16.2,
+                "developmentClass": 4,
+                "mainTreeSpecies": 1,
+                "meanAge": 120,
+                "meanDiameter": 26.2,
+                "meanHeight": 15.2,
+                "pulpWoodVolume": 75.9,
+                "sawLogVolume": 40.9,
+                "stemCount": 612,
+                "volume": 119.5,
+                "volumeGrowth": 1.91
+              }
+            }
+          ]
+        }
+      },
+      {
+        "__id": "37340006",
+        "specialFeatures": {
+          "specialFeature": {
+            "__id": "31357127",
+            "featureAdditionalCode": 43,
+            "featureCode": 540,
+            "mainFeature": 1
+          }
+        },
+        "standBasicData": {
+          "area": 0.25,
+          "areaDecrease": 0.0,
+          "completeState": 1,
+          "cuttingRestriction": 9,
+          "dataSource": 31,
+          "developmentClass": 4,
+          "drainageState": 1,
+          "fertilityClass": 3,
+          "growthPlaceDataSource": 5,
+          "identifiers": {
+            "identifier": [
+              {
+                "identifierType": 5,
+                "identifierValue": "1 Metsäkeskus"
+              },
+              {
+                "identifierType": 6,
+                "identifierValue": "4105"
+              }
+            ]
+          },
+          "mainGroup": 1,
+          "mainTreeSpecies": 1,
+          "polygonGeometry": {
+            "pointProperty": {
+              "point": {
+                "__srsName": "EPSG:3067",
+                "coordinates": "441660.4328,7548501.3556"
+              }
+            },
+            "polygonProperty": {
+              "polygon": {
+                "__srsName": "EPSG:3067",
+                "exterior": {
+                  "linearRing": {
+                    "coordinates": "441678.9163,7548517.3713 441648.3034,7548510.5792 441621.0949,7548510.9034 441605.014,7548502.5562 441603.1601,7548487.1652 441628.2039,7548487.4612 441647.6848,7548490.8539 441669.636,7548489.6039 441691.8961,7548487.1163 441707.7798,7548488.5691 441707.2876,7548494.486 441714.2893,7548499.4848 441717.6388,7548500.1551 441704.2652,7548509.9292 441678.9163,7548517.3713"
+                  }
+                }
+              }
+            }
+          },
+          "silvicultureRestriction": 9,
+          "soilType": 10,
+          "standBasicDataDate": "2022-08-09",
+          "standNumber": 9123,
+          "subGroup": 1
+        },
+        "treeStandData": {
+          "treeStandDataDate": [
+            {
+              "__date": "2022-08-09",
+              "__type": "1",
+              "treeStrata": {
+                "treeStratum": [
+                  {
+                    "__id": "218519336",
+                    "age": 118,
+                    "basalArea": 14.7,
+                    "meanDiameter": 26.6,
+                    "meanHeight": 16.4,
+                    "storey": 1,
+                    "stratumNumber": 1,
+                    "treeSpecies": 1,
+                    "volume": 115.0
+                  },
+                  {
+                    "__id": "218519337",
+                    "age": 110,
+                    "basalArea": 1.4,
+                    "meanDiameter": 23.0,
+                    "meanHeight": 13.4,
+                    "storey": 1,
+                    "stratumNumber": 2,
+                    "treeSpecies": 2,
+                    "volume": 8.6
+                  }
+                ]
+              }
+            },
+            {
+              "__date": "2024-01-01",
+              "__type": "2",
+              "treeStandSummary": {
+                "__id": "110416189",
+                "basalArea": 16.4,
+                "branchBiomass": 14.08,
+                "leafBiomass": 4.09,
+                "meanAge": 118,
+                "meanDiameter": 26.0,
+                "meanHeight": 16.1,
+                "pulpWoodVolume": 80.5,
+                "sawLogVolume": 44.6,
+                "stemBiomass": 49.31,
+                "stemCount": 575,
+                "stumpBiomass": 18.2,
+                "volume": 127.6,
+                "volumeGrowth": 2.23
+              },
+              "treeStrata": {
+                "treeStratum": [
+                  {
+                    "__id": "218519410",
+                    "age": 119,
+                    "basalArea": 14.9,
+                    "branchBiomass": 12.54,
+                    "leafBiomass": 3.05,
+                    "meanDiameter": 26.3,
+                    "meanHeight": 16.4,
+                    "pulpWoodVolume": 74.8,
+                    "sawLogVolume": 41.6,
+                    "stemBiomass": 45.72,
+                    "stemCount": 514,
+                    "storey": 1,
+                    "stratumNumber": 1,
+                    "stumpBiomass": 16.14,
+                    "treeSpecies": 1,
+                    "volume": 118.5,
+                    "volumeGrowth": 2.08
+                  },
+                  {
+                    "__id": "218519411",
+                    "age": 111,
+                    "basalArea": 1.5,
+                    "branchBiomass": 1.54,
+                    "leafBiomass": 1.04,
+                    "meanDiameter": 22.1,
+                    "meanHeight": 13.4,
+                    "pulpWoodVolume": 5.8,
+                    "sawLogVolume": 3.0,
+                    "stemBiomass": 3.59,
+                    "stemCount": 61,
+                    "storey": 1,
+                    "stratumNumber": 2,
+                    "stumpBiomass": 2.06,
+                    "treeSpecies": 2,
+                    "volume": 9.1,
+                    "volumeGrowth": 0.15
+                  }
+                ]
+              }
+            },
+            {
+              "__date": "2034-01-01",
+              "__type": "3",
+              "treeStandSummary": {
+                "__id": "125471060",
+                "basalArea": 18.5,
+                "developmentClass": 4,
+                "mainTreeSpecies": 1,
+                "meanAge": 128,
+                "meanDiameter": 26.9,
+                "meanHeight": 16.6,
+                "pulpWoodVolume": 95.3,
+                "sawLogVolume": 50.9,
+                "stemCount": 542,
+                "volume": 148.1,
+                "volumeGrowth": 2.21
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+}
