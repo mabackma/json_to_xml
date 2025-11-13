@@ -1,5 +1,5 @@
 use crate::json_utils::extract_prefixes;
-use crate::string_utils::{capitalize_word, lowercase_word};
+use crate::string_utils::capitalize_word;
 
 use std::fs;
 use quick_xml::Writer;
@@ -361,26 +361,5 @@ fn update_tag(parent_tag: &str) -> String {
         return "st:SpecialFeature".to_string()
     }
 
-    let new_tag = check_gis_data(&parent_tag);
-
-    new_tag.to_string()
-}
-
-// Check if parent tag contains GIS data
-fn check_gis_data(parent_tag: &str) -> String {
-    let gml_namespaces = vec!["Polygon", "Point", "LinearRing"];
-    let gml_lower_namespaces = vec!["Coordinates", "Exterior", "Interior", "PointProperty", "PolygonProperty", "PosList"];
-    let pt = parent_tag.split(":").last().unwrap();
-
-    let gis_tag = if pt == "PolygonGeometry" {
-        format!("{}:{}", "gdt", capitalize_word(&pt))
-    } else if gml_lower_namespaces.iter().any(|&x| pt == x) {
-        format!("{}:{}", "gml", lowercase_word(&pt))
-    } else if gml_namespaces.iter().any(|&x| pt == x) {
-        format!("{}:{}", "gml", capitalize_word(&pt))
-    } else {
-        parent_tag.to_string()
-    };
-
-    gis_tag
+    parent_tag.to_string()
 }
