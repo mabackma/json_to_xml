@@ -32,6 +32,7 @@ let json_data = r#"
 let xml_output = json_to_xml(&json_data, "People");
 
 println!("{}", xml_output);
+````
 
 ## Output
 
@@ -52,3 +53,4 @@ println!("{}", xml_output);
     <Name>John Doe</Name>
   </Person>
 </People>
+```
