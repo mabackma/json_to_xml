@@ -10,7 +10,7 @@ use std::io::Cursor;
 /// # Example
 /// 
 /// ```rust
-/// use schema_generator::generate_xml::json_to_xml;
+/// use json_to_xml::generate_xml::json_to_xml;
 /// 
 /// let json_data = r#"
 /// {
