@@ -63,7 +63,7 @@ use std::io::Cursor;
 /// ```
 /// 
 /// ## Parameters:
-/// - `json_value`: The input JSON value to be converted into XML. It can contain objects, arrays, and strings.
+/// - `json_string`: The input JSON string to be converted into XML. It can contain objects, arrays, and strings.
 /// - `root`: The name of the root element in the XML document.
 ///
 /// ## Returns:
