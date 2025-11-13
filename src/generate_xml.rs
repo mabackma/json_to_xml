@@ -5,7 +5,7 @@ use serde_json::Value;
 use std::collections::HashMap;
 use std::io::Cursor;
 
-/// # Convert JSON to XML with Namespaces.
+/// # Convert JSON to XML.
 /// 
 /// # Example
 /// 
@@ -49,18 +49,18 @@ use std::io::Cursor;
 /// <?xml version="1.0" encoding="UTF-8"?>
 /// <!--Generated with schema_generator 0.1.0-->
 /// <People xmlns:pr="http://standards.fi/schemas/personData/person" xmlns:addr="http://standards.fi/schemas/personData/addresses">
-///   <pr:Person id="1234">
-///     <addr:Addresses type="primary">
-///       <addr:City>Springfield</addr:City>
-///       <addr:Street>123 Main St</addr:Street>
-///     </addr:Addresses>
-///     <addr:Addresses type="secondary">
-///       <addr:City>Shelbyville</addr:City>
-///       <addr:Street>456 Oak Ave</addr:Street>
-///     </addr:Addresses>
-///     <pr:Age>30</pr:Age>
-///     <pr:Name>John Doe</pr:Name>
-///   </pr:Person>
+///   <Person id="1234">
+///     <Addresses type="primary">
+///       <City>Springfield</City>
+///       <Street>123 Main St</Street>
+///     </Addresses>
+///     <Addresses type="secondary">
+///       <City>Shelbyville</City>
+///       <Street>456 Oak Ave</Street>
+///     </Addresses>
+///     <Age>30</Age>
+///     <Name>John Doe</Name>
+///   </Person>
 /// </People>
 /// ```
 /// 
@@ -72,9 +72,9 @@ use std::io::Cursor;
 /// A string containing the XML representation of the input JSON, including necessary XML namespaces and attributes.
 ///
 /// ## Notes:
-/// - Attributes are prefixed with `__` in the JSON input and are converted to XML attributes.
 /// - This function works recursively to handle nested structures and arrays.
-/// - The order of elements in the XML output may differ from the JSON input.
+/// - Attributes are prefixed with `@` in the JSON input and are converted to XML attributes.
+/// - The order of attributes in the XML elements may differ.
 pub fn json_to_xml(json_value: &Value, root: &str) -> String {
 
     // Create the writer
