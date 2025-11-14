@@ -143,7 +143,7 @@ fn create_xml_element(
 
         // Handle strings as text content
         Value::String(s) => {
-            handle_string(writer, s);
+            write_content(writer, s);
         },
 
         // Handle number as text content
@@ -221,12 +221,6 @@ fn handle_array(writer: &mut Writer<Cursor<Vec<u8>>>, arr: &Vec<Value>, parent_t
     }
 }
 
-fn handle_string(writer: &mut Writer<Cursor<Vec<u8>>>, s: &String) {
-    writer
-        .write_event(Event::Text(BytesText::new(s)))
-        .expect("Unable to write text");
-}
-
 fn handle_number(writer: &mut Writer<Cursor<Vec<u8>>>, num: &Number) {
     let num_str = if num.is_i64() {
         format!("{}", num.as_i64().unwrap())
@@ -236,9 +230,7 @@ fn handle_number(writer: &mut Writer<Cursor<Vec<u8>>>, num: &Number) {
         String::new()
     };
 
-    writer
-        .write_event(Event::Text(BytesText::new(&num_str)))
-        .expect("Unable to write number");
+    write_content(writer, &num_str);
 }
 
 fn handle_object(writer: &mut Writer<Cursor<Vec<u8>>>, map: &Map<String, Value>, parent_tag: &str) {
@@ -315,4 +307,10 @@ fn handle_object(writer: &mut Writer<Cursor<Vec<u8>>>, map: &Map<String, Value>,
             }
         }
     }
+}
+
+fn write_content(writer: &mut Writer<Cursor<Vec<u8>>>, s: &String) {
+    writer
+        .write_event(Event::Text(BytesText::new(s)))
+        .expect("Unable to write text");
 }
