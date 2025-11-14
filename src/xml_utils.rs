@@ -1,6 +1,12 @@
 use quick_xml::Writer;
-use quick_xml::events::{BytesEnd, BytesStart, BytesText, Event};
+use quick_xml::events::{BytesDecl, BytesStart, BytesEnd, BytesText, Event};
 use std::io::Cursor;
+
+pub fn write_declaration(writer: &mut Writer<Cursor<Vec<u8>>>, xml_version: &str, encoding: Option<&str>) {
+    writer
+        .write_event(Event::Decl(BytesDecl::new(xml_version, encoding, None)))
+        .expect("Unable to write XML declaration");
+}
 
 pub fn write_start_tag(writer: &mut Writer<Cursor<Vec<u8>>>, element: &BytesStart<'_>) {
     writer
@@ -25,3 +31,11 @@ pub fn write_content(writer: &mut Writer<Cursor<Vec<u8>>>, s: &str) {
         .write_event(Event::Text(BytesText::new(s)))
         .expect("Unable to write text");
 }
+
+pub fn write_comment(writer: &mut Writer<Cursor<Vec<u8>>>, version: &str) {
+    writer
+        .write_event(
+            Event::Comment(BytesText::new(version)))
+        .expect("Unable to write comment");
+}
+

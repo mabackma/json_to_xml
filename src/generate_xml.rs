@@ -1,8 +1,8 @@
-use crate::xml_utils::{write_content, write_start_tag, write_empty_tag, write_end_tag};
+use crate::xml_utils::{write_declaration, write_comment, write_start_tag, write_empty_tag, write_end_tag, write_content};
 
 use std::fs;
 use quick_xml::Writer;
-use quick_xml::events::{BytesEnd, BytesStart, BytesText, BytesDecl, Event};
+use quick_xml::events::{BytesEnd, BytesStart};
 use serde_json::{Value, Number, Map, from_str};
 use std::collections::HashMap;
 use std::io::Cursor;
@@ -78,25 +78,17 @@ use std::io::Cursor;
 /// - The root start and end tags will be included only if the top-level JSON object contains `@` attributes.
 pub fn json_to_xml(json_string: &str, root: &str) -> String {
     let json_value: Value = from_str(&json_string).unwrap();
-
-    // Create the writer
     let mut writer = Writer::new_with_indent(Cursor::new(Vec::new()), b' ', 2); // 2-space indentation
 
     // Write XML header
-    writer
-        .write_event(Event::Decl(BytesDecl::new("1.0", Some("UTF-8"), None)))
-        .expect("Unable to write XML declaration");
+    write_declaration(&mut writer, "1.0", Some("UTF-8"));
     
     // Write metadata comment
-    let version = get_dependency_version("Cargo.toml").unwrap_or("0.0.0".to_string());
-    writer
-        .write_event(
-            Event::Comment(BytesText::new(&format!(
-            "Generated with json_to_xml {}", 
-            version
-        ))))
-        .expect("Unable to write comment");
+    let mut version = get_dependency_version("Cargo.toml").unwrap_or("0.0.0".to_string());
+    version = format!("Generated with json_to_xml {}", version);
+    write_comment(&mut writer, &version);
     
+    // Write the XML
     create_xml_element(&json_value, &mut writer, root);
 
     // Write the closing tag if there was a top level attribute
@@ -219,8 +211,6 @@ fn handle_array(writer: &mut Writer<Cursor<Vec<u8>>>, arr: &Vec<Value>, parent_t
     let parent_tag = capitalize_word(parent_tag);
     
     for (i, value) in arr.iter().enumerate() {
-
-        // Get the first key of the object 
         if value.is_object() {
             let first_key = value.as_object().unwrap().keys().next().unwrap();
 
