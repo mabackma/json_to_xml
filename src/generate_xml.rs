@@ -99,9 +99,7 @@ pub fn json_to_xml(json_string: &str, root: &str) -> String {
 
     // Write the closing tag if there was a top level attribute
     if has_top_level_attributes(&json_value) {
-        writer
-            .write_event(Event::End(BytesEnd::new(root)))
-            .expect("Unable to write end tag"); 
+        write_end_tag(&mut writer, &mut BytesEnd::new(root));
     }
 
     String::from_utf8(writer.into_inner().into_inner()).expect("Failed to convert to UTF-8")
@@ -205,9 +203,7 @@ fn handle_array(writer: &mut Writer<Cursor<Vec<u8>>>, arr: &Vec<Value>, parent_t
 
             // Write the start tag for all non-attribute elements, skipping the first one
             if !first_key.starts_with("@") && i > 0 {
-                writer
-                    .write_event(Event::Start(BytesStart::new(&parent_tag)))
-                    .expect("Unable to write start tag"); 
+                write_start_tag(writer, &mut BytesStart::new(&parent_tag));
             } 
         }
 
@@ -215,9 +211,7 @@ fn handle_array(writer: &mut Writer<Cursor<Vec<u8>>>, arr: &Vec<Value>, parent_t
         create_xml_element(value, writer, &parent_tag);
 
         // Write the closing tag
-        writer
-            .write_event(Event::End(BytesEnd::new(&parent_tag)))
-            .expect("Unable to write end tag");
+        write_end_tag(writer, &mut BytesEnd::new(&parent_tag));
     }
 }
 
@@ -255,16 +249,12 @@ fn handle_object(writer: &mut Writer<Cursor<Vec<u8>>>, map: &Map<String, Value>,
 
     // Write start tag with attributes, if any
     if !attributes.is_empty() {
-        writer
-            .write_event(Event::Start(element.to_owned()))
-            .expect("Unable to write start tag");
+        write_start_tag(writer, &mut element);
     }
 
     if map.contains_key("$text") {
         let text_content = map.get("$text").unwrap().as_str().unwrap();
-        writer
-            .write_event(Event::Text(BytesText::new(&text_content)))
-            .expect("Unable to write text");
+        write_content(writer, &text_content.to_owned());
     }
 
     // Process key-value pairs
@@ -277,10 +267,7 @@ fn handle_object(writer: &mut Writer<Cursor<Vec<u8>>>, map: &Map<String, Value>,
 
         // Write self-closing tag if the object is empty
         if value.is_object() && value.as_object().unwrap().is_empty() {
-            writer
-                .write_event(Event::Empty(element.to_owned()))
-                .expect("Unable to write self-closing tag");
-
+            write_empty_tag(writer, &mut element);
             continue;
         }
 
@@ -288,12 +275,9 @@ fn handle_object(writer: &mut Writer<Cursor<Vec<u8>>>, map: &Map<String, Value>,
         if key.starts_with("@") || key == "$text" {
             continue;
         } else {
-
             // Write the start tag if the value is not an attribute or an array with a first key as an attribute
             if !(is_attribute_key(value) || is_array_with_attribute_key(value)) {
-                writer
-                    .write_event(Event::Start(element.to_owned()))
-                    .expect("Unable to write start tag");
+                write_start_tag(writer, &mut element);
             }
 
             // Recursively process nested elements
@@ -301,12 +285,28 @@ fn handle_object(writer: &mut Writer<Cursor<Vec<u8>>>, map: &Map<String, Value>,
             
             // Write the closing tag if the value is not an array
             if !value.is_array() {
-                writer
-                    .write_event(Event::End(BytesEnd::new(key_tag)))
-                    .expect("Unable to write end tag");
+                write_end_tag(writer, &mut BytesEnd::new(key_tag));
             }
         }
     }
+}
+
+fn write_start_tag(writer: &mut Writer<Cursor<Vec<u8>>>, element: &mut BytesStart<'_>) {
+    writer
+        .write_event(Event::Start(element.to_owned()))
+        .expect("Unable to write start tag");
+}
+
+fn write_empty_tag(writer: &mut Writer<Cursor<Vec<u8>>>, element: &mut BytesStart<'_>) {
+    writer
+        .write_event(Event::Empty(element.to_owned()))
+        .expect("Unable to write self-closing tag");
+}
+
+fn write_end_tag(writer: &mut Writer<Cursor<Vec<u8>>>, element: &mut BytesEnd<'_>) {
+    writer
+        .write_event(Event::End(element.to_owned()))
+        .expect("Unable to write end tag");
 }
 
 fn write_content(writer: &mut Writer<Cursor<Vec<u8>>>, s: &String) {
