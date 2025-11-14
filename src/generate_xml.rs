@@ -3,7 +3,7 @@ use crate::xml_utils::{write_declaration, write_comment, write_start_tag, write_
 use std::fs;
 use quick_xml::Writer;
 use quick_xml::events::{BytesEnd, BytesStart};
-use serde_json::{Value, Number, Map, from_str};
+use serde_json::{Value, Map, from_str};
 use std::collections::HashMap;
 use std::io::Cursor;
 
@@ -115,7 +115,7 @@ pub fn get_dependency_version(file_path: &str) -> Option<String> {
         })
 }
 
-// Recursively create XML elements from JSON data
+/// Recursively create XML elements from JSON data
 fn create_xml_element(
     json_data: &Value, 
     writer: &mut Writer<Cursor<Vec<u8>>>, 
@@ -139,7 +139,7 @@ fn create_xml_element(
 
         // Handle number as text content
         Value::Number(num) => {
-            handle_number(writer, num);
+            write_content(writer, &num.to_string());
         }
 
         // Skip unsupported types
@@ -228,18 +228,6 @@ fn handle_array(writer: &mut Writer<Cursor<Vec<u8>>>, arr: &Vec<Value>, parent_t
     }
 }
 
-fn handle_number(writer: &mut Writer<Cursor<Vec<u8>>>, num: &Number) {
-    let num_str = if num.is_i64() {
-        format!("{}", num.as_i64().unwrap())
-    } else if num.is_f64() {
-        format!("{}", num.as_f64().unwrap())
-    } else {
-        String::new()
-    };
-
-    write_content(writer, &num_str);
-}
-
 // Check if json has top-level attributes
 fn has_top_level_attributes(json: &Value) -> bool {
     if let Value::Object(map) = json {
@@ -268,7 +256,7 @@ fn is_array_with_attribute_key(value: &Value) -> bool {
             .unwrap_or(false)
 }
 
-/// Capitalizes the first letter of a word.
+// Capitalizes the first letter of a word.
 fn capitalize_word(word: &str) -> String {
     let mut chars = word.chars();
     match chars.next() {
