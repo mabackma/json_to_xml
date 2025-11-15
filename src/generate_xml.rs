@@ -137,13 +137,20 @@ fn create_xml_element(
             write_content(writer, s);
         },
 
-        // Handle number as text content
+        // Handle numbers as text content
         Value::Number(num) => {
             write_content(writer, &num.to_string());
         }
 
-        // Skip unsupported types
-        _ => {} 
+        // Handle booleans
+        Value::Bool(b) => {
+            write_content(writer, &b.to_string());
+        }
+
+        // Handle Null values
+        Value::Null => {
+            write_empty_tag(writer, &BytesStart::new(parent_tag));
+        }
     }
 }
 
@@ -208,24 +215,47 @@ fn handle_object(writer: &mut Writer<Cursor<Vec<u8>>>, map: &Map<String, Value>,
 }
 
 fn handle_array(writer: &mut Writer<Cursor<Vec<u8>>>, arr: &Vec<Value>, parent_tag: &str) {
-    let parent_tag = capitalize_word(parent_tag);
+    let mut parent_tag = capitalize_word(parent_tag);
     
+    // Handle empty array
+    if arr.is_empty() {
+        write_empty_tag(writer, &BytesStart::new(&parent_tag));
+        return;
+    }
+
+    let original_tag = parent_tag.clone();
+
     for (i, value) in arr.iter().enumerate() {
         if value.is_object() {
-            let first_key = value.as_object().unwrap().keys().next().unwrap();
+            handle_object_array(writer, i, value, &parent_tag);
+        } else {
+            write_start_tag(writer, &BytesStart::new(&parent_tag));
+            create_xml_element(value, writer, &original_tag);
+            write_end_tag(writer, &BytesEnd::new(&parent_tag));
 
-            // Write the start tag for all non-attribute elements, skipping the first one
-            if !first_key.starts_with("@") && i > 0 {
-                write_start_tag(writer, &BytesStart::new(&parent_tag));
-            } 
+            if i == arr.len() - 1 {
+                write_end_tag(writer, &BytesEnd::new(&original_tag));
+            }
         }
-
-        // Process each element of the array as a separate XML tag
-        create_xml_element(value, writer, &parent_tag);
-
-        // Write the closing tag
-        write_end_tag(writer, &BytesEnd::new(&parent_tag));
     }
+}
+
+fn handle_object_array(
+    writer: &mut Writer<Cursor<Vec<u8>>>, 
+    index: usize, 
+    value: &Value, 
+    parent_tag: &str
+) {
+    let first_key = value.as_object().unwrap().keys().next().unwrap();
+
+    // Write the start tag for all non-attribute elements, skipping the first one
+    if !first_key.starts_with("@") && index > 0 {
+        write_start_tag(writer, &BytesStart::new(parent_tag));
+    } 
+
+    create_xml_element(value, writer, &parent_tag);
+
+    write_end_tag(writer, &BytesEnd::new(parent_tag));
 }
 
 // Check if json has top-level attributes
