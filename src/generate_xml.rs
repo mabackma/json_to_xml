@@ -154,7 +154,11 @@ fn create_xml_element(
     }
 }
 
-fn handle_object(writer: &mut Writer<Cursor<Vec<u8>>>, map: &Map<String, Value>, parent_tag: &str) {
+fn handle_object(
+    writer: &mut Writer<Cursor<Vec<u8>>>, 
+    map: &Map<String, Value>, 
+    parent_tag: &str
+) {
     let parent_tag = capitalize_word(parent_tag);
     let mut element = BytesStart::new(parent_tag);
 
@@ -214,22 +218,33 @@ fn handle_object(writer: &mut Writer<Cursor<Vec<u8>>>, map: &Map<String, Value>,
     }
 }
 
-fn handle_array(writer: &mut Writer<Cursor<Vec<u8>>>, arr: &Vec<Value>, parent_tag: &str) {
+fn handle_array(
+    writer: &mut Writer<Cursor<Vec<u8>>>, 
+    arr: &Vec<Value>, 
+    parent_tag: &str
+) {
     let mut parent_tag = capitalize_word(parent_tag);
-    
+    let original_tag = parent_tag.clone();
+    let item_tag = parent_tag.clone() + "Item";
+    let mixed_array = contains_objects_and_primitives(arr);
+
     // Handle empty array
     if arr.is_empty() {
         write_empty_tag(writer, &BytesStart::new(&parent_tag));
         return;
     }
 
-    let original_tag = parent_tag.clone();
-
     for (i, value) in arr.iter().enumerate() {
         if value.is_object() {
+            if i == 0 && value.is_object() && mixed_array {
+                parent_tag = item_tag.clone(); 
+                write_start_tag(writer, &BytesStart::new(&original_tag));
+            }
             handle_object_array(writer, i, value, &parent_tag);
         } else {
-            parent_tag = "Item".to_string();
+            if parent_tag != item_tag { 
+                parent_tag = item_tag.clone(); 
+            }
 
             write_start_tag(writer, &BytesStart::new(&parent_tag));
             create_xml_element(value, writer, &original_tag);
@@ -238,6 +253,10 @@ fn handle_array(writer: &mut Writer<Cursor<Vec<u8>>>, arr: &Vec<Value>, parent_t
             if i == arr.len() - 1 {
                 write_end_tag(writer, &BytesEnd::new(&original_tag));
             }
+        }
+
+        if i == arr.len() - 1 && value.is_object() && mixed_array {
+            write_end_tag(writer, &BytesEnd::new(&original_tag));
         }
     }
 }
@@ -256,8 +275,26 @@ fn handle_object_array(
     } 
 
     create_xml_element(value, writer, &parent_tag);
-
     write_end_tag(writer, &BytesEnd::new(parent_tag));
+}
+
+// Check if array contains both objects and primitive types
+fn contains_objects_and_primitives(arr: &Vec<Value>) -> bool {
+    let mut contains_obj = false;
+    let mut contains_primitive = false;
+
+    for v in arr {
+        if v.is_object() {
+            contains_obj = true;
+        } else {
+            contains_primitive = true;
+        }
+        if contains_obj && contains_primitive {
+            return true;
+        }
+    }
+
+    false
 }
 
 // Check if json has top-level attributes
