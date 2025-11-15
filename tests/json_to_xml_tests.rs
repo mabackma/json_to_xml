@@ -144,7 +144,7 @@ fn test_mixed_types_array() {
 
     let xml = json_to_xml(json, "Root");
 
-    assert!(xml.contains("<Data>A</Data>"));
-    assert!(xml.contains("<Data>123</Data>"));
+    assert!(xml.contains("<Item>A</Item>"));
+    assert!(xml.contains("<Item>123</Item>"));
     assert!(xml.contains("<X>y</X>"));
 }

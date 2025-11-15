@@ -229,6 +229,8 @@ fn handle_array(writer: &mut Writer<Cursor<Vec<u8>>>, arr: &Vec<Value>, parent_t
         if value.is_object() {
             handle_object_array(writer, i, value, &parent_tag);
         } else {
+            parent_tag = "Item".to_string();
+
             write_start_tag(writer, &BytesStart::new(&parent_tag));
             create_xml_element(value, writer, &original_tag);
             write_end_tag(writer, &BytesEnd::new(&parent_tag));
