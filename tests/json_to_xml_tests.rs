@@ -55,7 +55,7 @@ fn test_empty_array() {
 
     let xml = json_to_xml(json, "Root");
 
-    assert!(xml.contains("<List></List>") || xml.contains("<List/>"));
+    assert!(xml.contains("<List>") && xml.contains("</List>"));
 }
 
 #[test]

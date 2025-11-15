@@ -230,7 +230,7 @@ fn handle_array(
 
     // Handle empty array
     if arr.is_empty() {
-        write_empty_tag(writer, &BytesStart::new(&parent_tag));
+        write_end_tag(writer, &BytesEnd::new(&parent_tag));
         return;
     }
 
