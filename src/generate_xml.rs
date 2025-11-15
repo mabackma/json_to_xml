@@ -149,7 +149,7 @@ fn create_xml_element(
 
         // Handle Null values
         Value::Null => {
-            write_empty_tag(writer, &BytesStart::new(parent_tag));
+            write_empty_tag(writer, &BytesStart::new("None"));
         }
     }
 }
@@ -238,8 +238,9 @@ fn handle_array(
         if value.is_object() {
             if i == 0 && value.is_object() && mixed_array {
                 parent_tag = item_tag.clone(); 
-                write_start_tag(writer, &BytesStart::new(&original_tag));
+                write_start_tag(writer, &BytesStart::new(&parent_tag));
             }
+            
             handle_object_array(writer, i, value, &parent_tag);
         } else {
             if parent_tag != item_tag { 
@@ -267,15 +268,19 @@ fn handle_object_array(
     value: &Value, 
     parent_tag: &str
 ) {
-    let first_key = value.as_object().unwrap().keys().next().unwrap();
+    if let Some(obj) = value.as_object() {
+        if !obj.is_empty() {
+            let first_key = value.as_object().unwrap().keys().next().unwrap();
+            
+            // Write the start tag for all non-attribute elements, skipping the first one
+            if !first_key.starts_with("@") && index > 0 {
+                write_start_tag(writer, &BytesStart::new(parent_tag));
+            } 
 
-    // Write the start tag for all non-attribute elements, skipping the first one
-    if !first_key.starts_with("@") && index > 0 {
-        write_start_tag(writer, &BytesStart::new(parent_tag));
-    } 
-
-    create_xml_element(value, writer, &parent_tag);
-    write_end_tag(writer, &BytesEnd::new(parent_tag));
+            create_xml_element(value, writer, &parent_tag);
+            write_end_tag(writer, &BytesEnd::new(parent_tag));
+        }
+    }
 }
 
 // Check if array contains both objects and primitive types

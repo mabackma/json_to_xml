@@ -15,6 +15,9 @@ A string containing the XML representation of the input JSON, including necessar
 - Attributes are prefixed with `@` in the JSON input and are converted to XML attributes.  
 - The order of attributes in the XML elements may differ.  
 - The root start and end tags will included only if the top-level JSON object contains `@` attributes.
+- Empty objects are converted into self-closing `<Tag/>`
+- Empty arrays `[]` are converted into `<TagItem>...</TagItem>`
+- `null` values are converted into `<None/>`
 
 ## Example
 

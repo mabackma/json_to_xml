@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Generated with json_to_xml 0.0.0-->
+<Posts xmlns:corp="http://example.com/corp" version="2.0">
+  <Clients>
+    <ClientsItem>
+      <Name>AlphaCorp</Name>
+      <Projects priority="high">
+        <Budget>100000</Budget>
+        <ProjectName>AlphaOne</ProjectName>
+      </Projects>
+      <Projects>
+        <Budget>
+          <None/>
+        </Budget>
+        <ProjectName>AlphaTwo</ProjectName>
+      </Projects>
+    </ClientsItem>
+    <ClientsItem>
+      <Name>BetaCorp</Name>
+      <Projects>
+      </Projects>
+    </ClientsItem>
+    <ClientsItem>UnknownClient</ClientsItem>
+  </Clients>
+  <Notes>
+  </Notes>
+  <Platform>
+    <Metrics>
+      <Errors>
+      </Errors>
+      <Requests>
+        <RequestsItem>1200</RequestsItem>
+        <RequestsItem>1350</RequestsItem>
+        <RequestsItem>1425</RequestsItem>
+        <RequestsItem>
+          <None/>
+        </RequestsItem>
+      </Requests>
+      <Uptime>99.99</Uptime>
+    </Metrics>
+    <Services>
+      <ServicesItem>Compute</ServicesItem>
+      <ServicesItem deprecated="true">
+        <Instances>
+          <Count>100</Count>
+          <Type>S3</Type>
+        </Instances>
+        <Instances>
+          <Count>50</Count>
+          <Options>
+            <OptionsItem>fast</OptionsItem>
+            <OptionsItem>redundant</OptionsItem>
+          </Options>
+          <Type>Block</Type>
+        </Instances>
+        <Name>Storage</Name>
+      </ServicesItem>
+      <ServicesItem>LegacyService</ServicesItem>
+    </Services>
+    <Teams>
+      <Members>
+        <MembersItem>Alice</MembersItem>
+        <MembersItem>Bob</MembersItem>
+        <MembersItem>Charlie</MembersItem>
+      </Members>
+      <TeamName>DevOps</TeamName>
+    </Teams>
+    <Teams>
+      <Members>
+      </Members>
+      <TeamName>QA</TeamName>
+    </Teams>
+  </Platform>
+</Posts>
