@@ -14,7 +14,8 @@ A string containing the XML representation of the input JSON, including necessar
 - This function works recursively to handle nested structures and arrays.  
 - Attributes are prefixed with `@` in the JSON input and are converted to XML attributes.  
 - The order of attributes in the XML elements may differ.  
-- The root start and end tags will included only if the top-level JSON object contains `@` attributes.
+- `root` is only used with json_to_xml_with_root, since json_to_xml uses "Root" by default.
+- The `root` start and end tags will be included only if the top-level JSON object contains `@` attributes.
 - Empty objects are converted into self-closing `<Tag/>`
 - Empty arrays `[]` are converted into `<TagItem>...</TagItem>`
 - `null` values are converted into `<None/>`
@@ -22,7 +23,7 @@ A string containing the XML representation of the input JSON, including necessar
 ## Example
 
 ```rust
-use json_to_xml::generate_xml::json_to_xml;
+use json_to_xml::generate_xml::json_to_xml_with_root;
 
 let json_string = r#"
 {
@@ -48,7 +49,7 @@ let json_string = r#"
 }
 "#;
 
-let xml_string = json_to_xml(&json_string, "People");
+let xml_string = json_to_xml_with_root(&json_string, "People");
 
 println!("{}", xml_string);
 ````

@@ -1,6 +1,6 @@
 [package]
 name = "json_to_xml"
-version = "0.1.6"
+version = "0.1.7"
 authors = ["Marc Bäckman"]
 license = "MIT"
 description = "Convert JSON to XML with attribute support"

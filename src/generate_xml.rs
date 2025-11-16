@@ -12,7 +12,7 @@ use std::io::Cursor;
 /// # Example
 /// 
 /// ```rust
-/// use json_to_xml::generate_xml::json_to_xml;
+/// use json_to_xml::generate_xml::json_to_xml_with_root;
 /// 
 /// let json_string = r#"
 /// {
@@ -38,7 +38,7 @@ use std::io::Cursor;
 /// }
 /// "#;
 /// 
-/// let xml_string = json_to_xml(&json_string, "People");
+/// let xml_string = json_to_xml_with_root(&json_string, "People");
 /// 
 /// println!("{}", xml_string);
 /// ```
@@ -72,11 +72,24 @@ use std::io::Cursor;
 /// A string containing the XML representation of the input JSON, including necessary XML attributes.
 ///
 /// ## Notes:
-/// - This function works recursively to handle nested structures and arrays.
-/// - Attributes are prefixed with `@` in the JSON input and are converted to XML attributes.
-/// - The order of attributes in the XML elements may differ.
-/// - The root start and end tags will be included only if the top-level JSON object contains `@` attributes.
-pub fn json_to_xml(json_string: &str, root: &str) -> String {
+/// This function works recursively to handle nested structures and arrays.  
+/// Attributes are prefixed with `@` in the JSON input and are converted to XML attributes.  
+/// The order of attributes in the XML elements may differ.  
+/// `root` is only used with json_to_xml_with_root, since json_to_xml uses "Root" by default.
+/// The `root` start and end tags will be included only if the top-level JSON object contains `@` attributes.
+/// Empty objects are converted into self-closing `<Tag/>`
+/// Empty arrays `[]` are converted into `<TagItem>...</TagItem>`
+/// `null` values are converted into `<None/>`
+pub fn json_to_xml_with_root(json_string: &str, root: &str) -> String {
+    json_to_xml_inner(json_string, root)
+}
+
+/// This function will set `root` as "Root"
+pub fn json_to_xml(json_string: &str) -> String {
+    json_to_xml_inner(json_string, "Root")
+}
+
+fn json_to_xml_inner(json_string: &str, root: &str) -> String {
     let json_value: Value = from_str(&json_string).unwrap();
     let mut writer = Writer::new_with_indent(Cursor::new(Vec::new()), b' ', 2); // 2-space indentation
 

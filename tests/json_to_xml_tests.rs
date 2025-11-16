@@ -10,7 +10,7 @@ fn test_basic_conversion() {
         }
     }"#;
 
-    let xml = json_to_xml(json, "Root");
+    let xml = json_to_xml(json);
 
     assert!(xml.contains("<Root xmlns:pr=\"http://test/person\">"));
     assert!(xml.contains("<Person id=\"42\">"));
@@ -28,7 +28,7 @@ fn test_array_conversion() {
         ]
     }"#;
 
-    let xml = json_to_xml(json, "Root");
+    let xml = json_to_xml(json);
 
     assert!(xml.contains("<Items>"));
     assert!(xml.contains("<Value>A</Value>"));
@@ -42,7 +42,7 @@ fn test_empty_object() {
         "empty": {}
     }"#;
 
-    let xml = json_to_xml(json, "Root");
+    let xml = json_to_xml(json);
 
     assert!(xml.contains("<Empty/>"));
 }
@@ -53,7 +53,7 @@ fn test_empty_array() {
         "list": []
     }"#;
 
-    let xml = json_to_xml(json, "Root");
+    let xml = json_to_xml(json);
 
     assert!(xml.contains("<List>") && xml.contains("</List>"));
 }
@@ -64,7 +64,7 @@ fn test_number_value() {
         "age": 99
     }"#;
 
-    let xml = json_to_xml(json, "Root");
+    let xml = json_to_xml(json);
 
     assert!(xml.contains("<Age>99</Age>"));
 }
@@ -77,7 +77,7 @@ fn test_text_key_handling() {
         }
     }"#;
 
-    let xml = json_to_xml(json, "Root");
+    let xml = json_to_xml(json);
 
     assert!(xml.contains("<Person>hello</Person>"));
 }
@@ -89,7 +89,7 @@ fn test_top_level_attributes_trigger_root_tag() {
         "item": "value"
     }"#;
 
-    let xml = json_to_xml(json, "Root");
+    let xml = json_to_xml(json);
 
     assert!(xml.contains("<Root xmlns:x=\"http://x\">"));
     assert!(xml.contains("<Item>value</Item>"));
@@ -108,7 +108,7 @@ fn test_nested_attributes() {
         }
     }"#;
 
-    let xml = json_to_xml(json, "Root");
+    let xml = json_to_xml(json);
 
     assert!(xml.contains("<Outer type=\"x\">"));
     assert!(xml.contains("<Inner id=\"5\">"));
@@ -124,7 +124,7 @@ fn test_array_of_objects_with_attributes() {
         ]
     }"#;
 
-    let xml = json_to_xml(json, "Root");
+    let xml = json_to_xml(json);
 
     assert!(xml.contains("id=\"1\""));
     assert!(xml.contains("id=\"2\""));
@@ -142,9 +142,48 @@ fn test_mixed_types_array() {
         ]
     }"#;
 
-    let xml = json_to_xml(json, "Root");
+    let xml = json_to_xml(json);
 
     assert!(xml.contains("<DataItem>A</DataItem>"));
     assert!(xml.contains("<DataItem>123</DataItem>"));
     assert!(xml.contains("<X>y</X>"));
+}
+
+#[test]
+fn test_deep_nested_mixed_arrays() {
+    let json = r#"
+    {
+        "root": {
+            "items": [
+                {
+                    "inner1": [
+                        "x",
+                        42,
+                        { "b": 4 }
+                    ],
+                    "inner2": [
+                        { "a": "1" },
+                        "x",
+                        420
+                    ],
+                    "inner3": { "c": [40, {"d": 50}, 60] }
+                }
+            ]
+        }
+    }
+    "#;
+
+    let xml = json_to_xml(json);
+
+    assert!(xml.contains("<Inner1Item>x</Inner1Item>"));
+    assert!(xml.contains("<Inner1Item>42</Inner1Item>"));
+    assert!(xml.contains("<B>4</B>"));
+
+    assert!(xml.contains("<A>1</A>"));
+    assert!(xml.contains("<Inner2Item>x</Inner2Item>"));
+    assert!(xml.contains("<Inner2Item>420</Inner2Item>"));
+
+    assert!(xml.contains("<CItem>40</CItem>"));
+    assert!(xml.contains("<D>50</D>"));
+    assert!(xml.contains("<CItem>60</CItem>"));
 }

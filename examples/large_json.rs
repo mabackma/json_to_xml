@@ -1,4 +1,4 @@
-use json_to_xml::generate_xml::json_to_xml;
+use json_to_xml::generate_xml::json_to_xml_with_root;
 
 use std::fs;
 
@@ -52,7 +52,7 @@ fn main() {
         "Notes": []
     }"#;
 
-    let xml_string = json_to_xml(&json, "Posts");
+    let xml_string = json_to_xml_with_root(&json, "Posts");
 
     fs::write("examples/large_json_output.xml", &xml_string).expect("Failed to write XML file");
     println!("{}", xml_string);
