@@ -1,5 +1,9 @@
 # JSON to XML
 
+[Crate](https://crates.io/crates/json_to_xml)
+
+[Documentation](https://docs.rs/json_to_xml/0.1.7/json_to_xml/)
+
 ## Parameters
 
 - `json_string`: The input JSON string to be converted into XML. It can contain objects, arrays, and strings.  
