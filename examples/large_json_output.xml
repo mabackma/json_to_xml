@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--Generated with json_to_xml 0.0.0-->
+<!--Generated with json_to_xml 0.1.7-->
 <Posts xmlns:corp="http://example.com/corp" version="2.0">
   <Clients>
     <ClientsItem>

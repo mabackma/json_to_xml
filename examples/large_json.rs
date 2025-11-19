@@ -52,8 +52,8 @@ fn main() {
         "Notes": []
     }"#;
 
-    let xml_string = json_to_xml_with_root(&json, "Posts");
+    let xml_string = json_to_xml_with_root(&json, "Posts").unwrap();
 
-    fs::write("examples/large_json_output.xml", &xml_string).expect("Failed to write XML file");
+    fs::write("examples/large_json_output.xml", xml_string.as_bytes()).expect("Failed to write XML file");
     println!("{}", xml_string);
 }

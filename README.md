@@ -1,30 +1,48 @@
-# JSON to XML
+# Convert JSON to XML with a default "Root" element.
 
-[Crate](https://crates.io/crates/json_to_xml)
+This is a convenience function that calls `json_to_xml_with_root` with "Root" as the default root element name.
 
-[Documentation](https://docs.rs/json_to_xml/0.1.7/json_to_xml/)
+# Example
 
-## Parameters
+```rust
+use json_to_xml::generate_xml::json_to_xml;
 
-- `json_string`: The input JSON string to be converted into XML. It can contain objects, arrays, and strings.  
-- `root`: The name of the root. It will become the root element of the XML if the JSON contains top-level `@` attributes. 
+let json_string = r#"
+{
+    "book": {
+        "@isbn": "978-3-16-148410-0",
+        "title": "The Rust Programming Language",
+        "author": "Steve Klabnik and Carol Nichols"
+    }
+}
+"#;
 
-## Returns
+let xml_string = json_to_xml(&json_string).unwrap();
 
-A string containing the XML representation of the input JSON, including necessary XML attributes.  
+println!("{}", xml_string);
+```
 
-## Notes
+## Expected Output (XML):
 
-- This function works recursively to handle nested structures and arrays.  
-- Attributes are prefixed with `@` in the JSON input and are converted to XML attributes.  
-- The order of attributes in the XML elements may differ.  
-- `root` is only used with json_to_xml_with_root, since json_to_xml uses "Root" by default.
-- The `root` start and end tags will be included only if the top-level JSON object contains `@` attributes.
-- Empty objects are converted into self-closing `<Tag/>`
-- Empty arrays `[]` are converted into `<TagItem>...</TagItem>`
-- `null` values are converted into `<None/>`
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Generated with json_to_xml 0.1.7-->
+<Root>
+  <Book isbn="978-3-16-148410-0">
+    <Author>Steve Klabnik and Carol Nichols</Author>
+    <Title>The Rust Programming Language</Title>
+  </Book>
+</Root>
+```
 
-## Example
+# Convert JSON to XML with a custom root element.
+
+This function takes a JSON string and a specified root element name and converts it into an XML string.
+It processes JSON objects, arrays, and primitive values recursively.
+Attributes in JSON (prefixed with `@`) are converted to XML attributes.
+All XML tags are capitalized.
+
+# Example
 
 ```rust
 use json_to_xml::generate_xml::json_to_xml_with_root;
@@ -53,16 +71,16 @@ let json_string = r#"
 }
 "#;
 
-let xml_string = json_to_xml_with_root(&json_string, "People");
+let xml_string = json_to_xml_with_root(&json_string, "People").unwrap();
 
 println!("{}", xml_string);
-````
+```
 
-## Output
+## Expected Output (XML):
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
-<!--Generated with json_to_xml 0.1.0-->
+<!--Generated with json_to_xml 0.1.7-->
 <People xmlns:pr="http://standards.fi/schemas/personData/person" xmlns:addr="http://standards.fi/schemas/personData/addresses">
   <Person id="1234">
     <Addresses type="primary">
@@ -78,3 +96,18 @@ println!("{}", xml_string);
   </Person>
 </People>
 ```
+
+## Parameters:
+- `json_string`: The input JSON string to be converted into XML.
+- `root`: The name for the root element of the XML. This is especially important if the top-level JSON object contains attributes.
+
+## Returns:
+A `Result` which is either a `String` containing the XML representation of the input JSON, or a `ConversionError` if parsing or conversion fails.
+
+## Notes:
+- This function works recursively to handle nested structures and arrays.
+- JSON keys starting with `@` are treated as attributes for the parent XML element.
+- All XML element tags are automatically capitalized.
+- Empty JSON objects (`{}`) are converted into self-closing tags (e.g., `<Tag/>`).
+- Empty JSON arrays (`[]`) are converted into an empty element (e.g., `<Tag></Tag>`).
+- `null` values in JSON are converted into a self-closing `<None/>` tag.

@@ -1,19 +1,65 @@
+use crate::error::ConversionError;
 use crate::xml_utils::{write_declaration, write_comment, write_start_tag, write_empty_tag, write_end_tag, write_content};
 
-use std::fs;
 use quick_xml::Writer;
 use quick_xml::events::{BytesEnd, BytesStart};
 use serde_json::{Value, Map, from_str};
 use std::collections::HashMap;
 use std::io::Cursor;
-
-/// # Convert JSON to XML.
-/// 
+use std::fs;
+use toml::de::from_str as toml_from_str;
+/// # Convert JSON to XML with a default "Root" element.
+///
+/// This is a convenience function that calls `json_to_xml_with_root` with "Root" as the default root element name.
+///
 /// # Example
-/// 
+///
+/// ```rust
+/// use json_to_xml::generate_xml::json_to_xml;
+///
+/// let json_string = r#"
+/// {
+///     "book": {
+///         "@isbn": "978-3-16-148410-0",
+///         "title": "The Rust Programming Language",
+///         "author": "Steve Klabnik and Carol Nichols"
+///     }
+/// }
+/// "#;
+///
+/// let xml_string = json_to_xml(&json_string).unwrap();
+///
+/// println!("{}", xml_string);
+/// ```
+///
+/// ## Expected Output (XML):
+///
+/// ```xml
+/// <?xml version="1.0" encoding="UTF-8"?>
+/// <!--Generated with json_to_xml 0.1.7-->
+/// <Root>
+///   <Book isbn="978-3-16-148410-0">
+///     <Author>Steve Klabnik and Carol Nichols</Author>
+///     <Title>The Rust Programming Language</Title>
+///   </Book>
+/// </Root>
+/// ```
+pub fn json_to_xml(json_string: &str) -> Result<String, ConversionError> {
+    json_to_xml_with_root(json_string, "Root")
+}
+
+/// # Convert JSON to XML with a custom root element.
+///
+/// This function takes a JSON string and a specified root element name and converts it into an XML string.
+/// It processes JSON objects, arrays, and primitive values recursively.
+/// Attributes in JSON (prefixed with `@`) are converted to XML attributes.
+/// All XML tags are capitalized.
+///
+/// # Example
+///
 /// ```rust
 /// use json_to_xml::generate_xml::json_to_xml_with_root;
-/// 
+///
 /// let json_string = r#"
 /// {
 ///     "@xmlns:addr": "http://standards.fi/schemas/personData/addresses",
@@ -37,17 +83,17 @@ use std::io::Cursor;
 ///     }
 /// }
 /// "#;
-/// 
-/// let xml_string = json_to_xml_with_root(&json_string, "People");
-/// 
+///
+/// let xml_string = json_to_xml_with_root(&json_string, "People").unwrap();
+///
 /// println!("{}", xml_string);
 /// ```
-/// 
+///
 /// ## Expected Output (XML):
-/// 
+///
 /// ```xml
 /// <?xml version="1.0" encoding="UTF-8"?>
-/// <!--Generated with json_to_xml 0.1.0-->
+/// <!--Generated with json_to_xml 0.1.7-->
 /// <People xmlns:pr="http://standards.fi/schemas/personData/person" xmlns:addr="http://standards.fi/schemas/personData/addresses">
 ///   <Person id="1234">
 ///     <Addresses type="primary">
@@ -63,216 +109,191 @@ use std::io::Cursor;
 ///   </Person>
 /// </People>
 /// ```
-/// 
+///
 /// ## Parameters:
-/// - `json_string`: The input JSON string to be converted into XML. It can contain objects, arrays, and strings.
-/// - `root`: The name of the root. It will become the root element of the XML if the JSON contains top-level `@` attributes.
+/// - `json_string`: The input JSON string to be converted into XML.
+/// - `root`: The name for the root element of the XML. This is especially important if the top-level JSON object contains attributes.
 ///
 /// ## Returns:
-/// A string containing the XML representation of the input JSON, including necessary XML attributes.
+/// A `Result` which is either a `String` containing the XML representation of the input JSON, or a `ConversionError` if parsing or conversion fails.
 ///
 /// ## Notes:
-/// This function works recursively to handle nested structures and arrays.  
-/// Attributes are prefixed with `@` in the JSON input and are converted to XML attributes.  
-/// The order of attributes in the XML elements may differ.  
-/// `root` is only used with json_to_xml_with_root, since json_to_xml uses "Root" by default.
-/// The `root` start and end tags will be included only if the top-level JSON object contains `@` attributes.
-/// Empty objects are converted into self-closing `<Tag/>`
-/// Empty arrays `[]` are converted into `<TagItem>...</TagItem>`
-/// `null` values are converted into `<None/>`
-pub fn json_to_xml_with_root(json_string: &str, root: &str) -> String {
-    json_to_xml_inner(json_string, root)
-}
+/// - This function works recursively to handle nested structures and arrays.
+/// - JSON keys starting with `@` are treated as attributes for the parent XML element.
+/// - All XML element tags are automatically capitalized.
+/// - Empty JSON objects (`{}`) are converted into self-closing tags (e.g., `<Tag/>`).
+/// - Empty JSON arrays (`[]`) are converted into an empty element (e.g., `<Tag></Tag>`).
+/// - `null` values in JSON are converted into a self-closing `<None/>` tag.
+pub fn json_to_xml_with_root(json_string: &str, root: &str) -> Result<String, ConversionError> {
+    let json_value: Value = from_str(&json_string)?;
+    let mut writer = Writer::new_with_indent(Cursor::new(Vec::new()), b' ', 2);
 
-/// This function will set `root` as "Root"
-pub fn json_to_xml(json_string: &str) -> String {
-    json_to_xml_inner(json_string, "Root")
-}
-
-fn json_to_xml_inner(json_string: &str, root: &str) -> String {
-    let json_value: Value = from_str(&json_string).unwrap();
-    let mut writer = Writer::new_with_indent(Cursor::new(Vec::new()), b' ', 2); // 2-space indentation
-
-    // Write XML header
-    write_declaration(&mut writer, "1.0", Some("UTF-8"));
+    write_declaration(&mut writer, "1.0", Some("UTF-8"))?;
     
-    // Write metadata comment
-    let mut version = get_dependency_version("Cargo.toml").unwrap_or("0.0.0".to_string());
+    let mut version = get_dependency_version("Cargo.toml")?;
     version = format!("Generated with json_to_xml {}", version);
-    write_comment(&mut writer, &version);
+    write_comment(&mut writer, &version)?;
     
-    // Write the XML
-    create_xml_element(&json_value, &mut writer, root);
+    create_xml_element(&json_value, &mut writer, root)?;
 
-    // Write the closing tag if there was a top level attribute
     if has_top_level_attributes(&json_value) {
-        write_end_tag(&mut writer, &BytesEnd::new(root));
+        write_end_tag(&mut writer, &BytesEnd::new(root))?;
     }
 
-    String::from_utf8(writer.into_inner().into_inner()).expect("Failed to convert to UTF-8")
+    Ok(String::from_utf8(writer.into_inner().into_inner())?)
 }
 
 /// Helper function to get json_to_xml version from the Cargo.toml file
-pub fn get_dependency_version(file_path: &str) -> Option<String> {
-    let content = fs::read_to_string(file_path).expect("Unable to read the file");
-    let toml: Value = toml::de::from_str(&content).expect("Unable to parse TOML");
+pub fn get_dependency_version(file_path: &str) -> Result<String, ConversionError> {
+    let content = fs::read_to_string(file_path)?;
+    let toml: Value = toml_from_str(&content)?;
 
-    toml.get("dependencies")
-        .and_then(|deps| deps.get("json_to_xml"))
-        .and_then(|dep| {
+    if let Some(deps) = toml.get("dependencies") {
+        if let Some(dep) = deps.get("json_to_xml") {
             if dep.is_object() {
-                dep.get("version").and_then(|v| v.as_str()).map(|s| s.to_string())
-            } else {
-                dep.as_str().map(|s| s.to_string())
+                if let Some(version) = dep.get("version").and_then(|v| v.as_str()) {
+                    return Ok(version.to_string());
+                }
+            } else if let Some(version) = dep.as_str() {
+                return Ok(version.to_string());
             }
-        })
+        }
+    }
+
+    // If not found in dependencies, try the package section
+    if let Some(pkg) = toml.get("package") {
+        if let Some(version) = pkg.get("version").and_then(|v| v.as_str()) {
+            return Ok(version.to_string());
+        }
+    }
+
+    Err(ConversionError::Toml(toml_from_str::<Value>("").unwrap_err()))
 }
 
-/// Recursively create XML elements from JSON data
 fn create_xml_element(
     json_data: &Value, 
     writer: &mut Writer<Cursor<Vec<u8>>>, 
     parent_tag: &str
-) {
+) -> Result<(), ConversionError> {
     match json_data {
-        // Handle objects
         Value::Object(map) => {
-            handle_object(writer, map, parent_tag);
+            handle_object(writer, map, parent_tag)?;
         },
-
-        // Handle arrays by processing each item inside the array
         Value::Array(arr) => {
-            handle_array(writer, arr, parent_tag);
+            handle_array(writer, arr, parent_tag)?;
         },
-
-        // Handle strings as text content
         Value::String(s) => {
-            write_content(writer, s);
+            write_content(writer, s)?;
         },
-
-        // Handle numbers as text content
         Value::Number(num) => {
-            write_content(writer, &num.to_string());
+            write_content(writer, &num.to_string())?;
         }
-
-        // Handle booleans
         Value::Bool(b) => {
-            write_content(writer, &b.to_string());
+            write_content(writer, &b.to_string())?;
         }
-
-        // Handle Null values
         Value::Null => {
-            write_empty_tag(writer, &BytesStart::new("None"));
+            write_empty_tag(writer, &BytesStart::new("None"))?;
         }
     }
+    Ok(())
 }
 
 fn handle_object(
     writer: &mut Writer<Cursor<Vec<u8>>>, 
     map: &Map<String, Value>, 
     parent_tag: &str
-) {
+) -> Result<(), ConversionError> {
     let parent_tag = capitalize_word(parent_tag);
-    let mut element = BytesStart::new(parent_tag);
+    let mut element = BytesStart::new(parent_tag.clone());
 
-    // Extract attributes
     let attributes: HashMap<_, _> = map
         .iter()
         .filter(|(key, _)| key.starts_with("@"))
         .map(|(key, value)| (&key[1..], value))
         .collect();
 
-    // Add attributes to the element
     for (key, value) in &attributes {
         if let Some(value_str) = value.as_str() {
             element.push_attribute((*key, value_str));
         }
     }
 
-    // Write start tag with attributes, if any
     if !attributes.is_empty() {
-        write_start_tag(writer, &element);
+        write_start_tag(writer, &element)?;
     }
 
-    if map.contains_key("$text") {
-        let text_content = map.get("$text").unwrap().as_str().unwrap();
-        write_content(writer, text_content);
+    if let Some(text_content) = map.get("$text").and_then(|v| v.as_str()) {
+        write_content(writer, text_content)?;
     }
 
-    // Process key-value pairs
     for (key, value) in map {
-        // Reset the element for the next iteration
         let key_tag = capitalize_word(key);
         element = BytesStart::new(key_tag.clone());
 
-        // Write self-closing tag if the object is empty
-        if value.is_object() && value.as_object().unwrap().is_empty() {
-            write_empty_tag(writer, &element);
+        if value.as_object().map_or(false, |m| m.is_empty()) {
+            write_empty_tag(writer, &element)?;
             continue;
         }
 
-        // Skip attributes
         if key.starts_with("@") || key == "$text" {
             continue;
         } else {
-            // Write the start tag if the value is not an attribute or an array with a first key as an attribute
             if !(is_attribute_key(value) || is_array_with_attribute_key(value)) {
-                write_start_tag(writer, &element);
+                write_start_tag(writer, &element)?;
             }
 
-            // Recursively process nested elements
-            create_xml_element(value, writer, key);
+            create_xml_element(value, writer, key)?;
             
-            // Write the closing tag if the value is not an array
             if !value.is_array() {
-                write_end_tag(writer, &BytesEnd::new(key_tag));
+                write_end_tag(writer, &BytesEnd::new(key_tag))?;
             }
         }
     }
+    Ok(())
 }
 
 fn handle_array(
     writer: &mut Writer<Cursor<Vec<u8>>>, 
     arr: &Vec<Value>, 
     parent_tag: &str
-) {
+) -> Result<(), ConversionError> {
     let mut parent_tag = capitalize_word(parent_tag);
     let original_tag = parent_tag.clone();
     let item_tag = parent_tag.clone() + "Item";
     let mixed_array = contains_objects_and_primitives(arr);
 
-    // Handle empty array
     if arr.is_empty() {
-        write_end_tag(writer, &BytesEnd::new(&parent_tag));
-        return;
+        write_end_tag(writer, &BytesEnd::new(&parent_tag))?;
+        return Ok(());
     }
 
     for (i, value) in arr.iter().enumerate() {
         if value.is_object() {
-            if i == 0 && value.is_object() && mixed_array {
+            if i == 0 && mixed_array {
                 parent_tag = item_tag.clone(); 
-                write_start_tag(writer, &BytesStart::new(&parent_tag));
+                write_start_tag(writer, &BytesStart::new(&parent_tag))?;
             }
             
-            handle_object_array(writer, i, value, &parent_tag);
+            handle_object_array(writer, i, value, &parent_tag)?;
         } else {
             if parent_tag != item_tag { 
                 parent_tag = item_tag.clone(); 
             }
 
-            write_start_tag(writer, &BytesStart::new(&parent_tag));
-            create_xml_element(value, writer, &original_tag);
-            write_end_tag(writer, &BytesEnd::new(&parent_tag));
+            write_start_tag(writer, &BytesStart::new(&parent_tag))?;
+            create_xml_element(value, writer, &original_tag)?;
+            write_end_tag(writer, &BytesEnd::new(&parent_tag))?;
 
             if i == arr.len() - 1 {
-                write_end_tag(writer, &BytesEnd::new(&original_tag));
+                write_end_tag(writer, &BytesEnd::new(&original_tag))?;
             }
         }
 
         if i == arr.len() - 1 && value.is_object() && mixed_array {
-            write_end_tag(writer, &BytesEnd::new(&original_tag));
+            write_end_tag(writer, &BytesEnd::new(&original_tag))?;
         }
     }
+    Ok(())
 }
 
 fn handle_object_array(
@@ -280,23 +301,22 @@ fn handle_object_array(
     index: usize, 
     value: &Value, 
     parent_tag: &str
-) {
+) -> Result<(), ConversionError> {
     if let Some(obj) = value.as_object() {
         if !obj.is_empty() {
-            let first_key = value.as_object().unwrap().keys().next().unwrap();
+            let first_key = obj.keys().next().unwrap();
             
-            // Write the start tag for all non-attribute elements, skipping the first one
             if !first_key.starts_with("@") && index > 0 {
-                write_start_tag(writer, &BytesStart::new(parent_tag));
+                write_start_tag(writer, &BytesStart::new(parent_tag))?;
             } 
 
-            create_xml_element(value, writer, &parent_tag);
-            write_end_tag(writer, &BytesEnd::new(parent_tag));
+            create_xml_element(value, writer, &parent_tag)?;
+            write_end_tag(writer, &BytesEnd::new(parent_tag))?;
         }
     }
+    Ok(())
 }
 
-// Check if array contains both objects and primitive types
 fn contains_objects_and_primitives(arr: &Vec<Value>) -> bool {
     let mut contains_obj = false;
     let mut contains_primitive = false;
@@ -315,7 +335,6 @@ fn contains_objects_and_primitives(arr: &Vec<Value>) -> bool {
     false
 }
 
-// Check if json has top-level attributes
 fn has_top_level_attributes(json: &Value) -> bool {
     if let Value::Object(map) = json {
         map.keys().any(|key| key.starts_with('@'))
@@ -324,26 +343,14 @@ fn has_top_level_attributes(json: &Value) -> bool {
     }
 }
 
-// Check if any key of the object is an attribute
 fn is_attribute_key(value: &Value) -> bool {
-    value.is_object()
-        && value.as_object()
-            .unwrap()
-            .keys()
-            .any(|key| key.starts_with("@")) // Check if any key is an attribute
+    value.as_object().map_or(false, |m| m.keys().any(|key| key.starts_with("@")))
 }
 
-// Check if any key of the first object in array is an attribute
 fn is_array_with_attribute_key(value: &Value) -> bool {
-    value.is_array()
-        && value.as_array()
-            .unwrap()
-            .first()
-            .map(|v| is_attribute_key(v))
-            .unwrap_or(false)
+    value.as_array().and_then(|a| a.first()).map_or(false, |v| is_attribute_key(v))
 }
 
-// Capitalizes the first letter of a word.
 fn capitalize_word(word: &str) -> String {
     let mut chars = word.chars();
     match chars.next() {
