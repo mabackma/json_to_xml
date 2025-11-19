@@ -1,8 +1,14 @@
-# Convert JSON to XML with a default "Root" element.
+# JSON to XML
+
+[Crate](https://crates.io/crates/json_to_xml)
+
+[Documentation](https://docs.rs/json_to_xml/0.1.8/json_to_xml/)
+
+## Convert JSON to XML with a default "Root" element.
 
 This is a convenience function that calls `json_to_xml_with_root` with "Root" as the default root element name.
 
-# Example 1
+## Example 1
 
 ```rust
 use json_to_xml::generate_xml::json_to_xml;
@@ -36,7 +42,7 @@ println!("{}", xml_string);
 </Root>
 ```
 
-# Example 2
+## Example 2
 
 ```rust
 use json_to_xml::generate_xml::json_to_xml;
@@ -67,14 +73,14 @@ println!("{}", xml_string);
 </Book>
 ```
 
-# Convert JSON to XML with a custom root element.
+## Convert JSON to XML with a custom root element.
 
 This function takes a JSON string and a specified root element name and converts it into an XML string.
 It processes JSON objects, arrays, and primitive values recursively.
 Attributes in JSON (prefixed with `@`) are converted to XML attributes.
 All XML tags are capitalized.
 
-# Example
+## Example
 
 ```rust
 use json_to_xml::generate_xml::json_to_xml_with_root;

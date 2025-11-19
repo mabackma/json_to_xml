@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--Generated with json_to_xml 0.1.7-->
-<Posts xmlns:corp="http://example.com/corp" version="2.0">
+<!--Generated with json_to_xml 0.1.8-->
+<Posts version="2.0" xmlns:corp="http://example.com/corp">
   <Clients>
     <ClientsItem>
       <Name>AlphaCorp</Name>
