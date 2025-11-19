@@ -2,7 +2,41 @@
 
 This is a convenience function that calls `json_to_xml_with_root` with "Root" as the default root element name.
 
-# Example
+# Example 1
+
+```rust
+use json_to_xml::generate_xml::json_to_xml;
+
+let json_string = r#"
+{
+    "@library": "lib1",
+    "book": {
+        "@isbn": "978-3-16-148410-0",
+        "title": "The Rust Programming Language",
+        "author": "Steve Klabnik and Carol Nichols"
+    }
+}
+"#;
+
+let xml_string = json_to_xml(&json_string).unwrap();
+
+println!("{}", xml_string);
+```
+
+## Expected Output (XML):
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Generated with json_to_xml 0.1.7-->
+<Root library="lib1">
+  <Book isbn="978-3-16-148410-0">
+    <Author>Steve Klabnik and Carol Nichols</Author>
+    <Title>The Rust Programming Language</Title>
+  </Book>
+</Root>
+```
+
+# Example 2
 
 ```rust
 use json_to_xml::generate_xml::json_to_xml;
@@ -27,12 +61,10 @@ println!("{}", xml_string);
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <!--Generated with json_to_xml 0.1.7-->
-<Root>
-  <Book isbn="978-3-16-148410-0">
-    <Author>Steve Klabnik and Carol Nichols</Author>
-    <Title>The Rust Programming Language</Title>
-  </Book>
-</Root>
+<Book isbn="978-3-16-148410-0">
+  <Author>Steve Klabnik and Carol Nichols</Author>
+  <Title>The Rust Programming Language</Title>
+</Book>
 ```
 
 # Convert JSON to XML with a custom root element.
