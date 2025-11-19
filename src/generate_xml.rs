@@ -112,7 +112,7 @@ pub fn json_to_xml(json_string: &str) -> Result<String, ConversionError> {
 ///
 /// ## Parameters:
 /// - `json_string`: The input JSON string to be converted into XML.
-/// - `root`: The name for the root element of the XML. This is especially important if the top-level JSON object contains attributes.
+/// - `root`: The name for the root element of the XML. It will become the root element of the XML if the JSON contains top-level @ attributes.
 ///
 /// ## Returns:
 /// A `Result` which is either a `String` containing the XML representation of the input JSON, or a `ConversionError` if parsing or conversion fails.
